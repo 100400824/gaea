@@ -1,0 +1,44 @@
+# Compiled source #
+###################
+*.class
+*.pyc
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+nohup.out
+
+*.iml
+.idea
+.settings
+.python-version
+.env
+.venv
+.ipynb_checkpoints
+.scrapy
+*.log
+
+
+
+# templates files #
+######################
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+logging.log
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
