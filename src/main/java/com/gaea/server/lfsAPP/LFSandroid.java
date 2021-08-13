@@ -26,7 +26,7 @@ public class LFSandroid {
             OperationFile.clearFile(FileManage.reportPath);
         }
 
-        doAppium1(pfp);
+        runSceneCase(pfp);
 
         pfp.write("\r\n");
 
@@ -38,7 +38,7 @@ public class LFSandroid {
     }
 
 
-    public static void doAppium1(FileWriter pfp) throws Exception {
+    public static void runSceneCase(FileWriter pfp) throws Exception {
 
         String sceneManagerName = "sceneManager";
 
@@ -100,9 +100,7 @@ public class LFSandroid {
     private static int caseNum(String casePath) throws Exception {
 
         String[] isRun = ExcelTest.getCell(casePath, "sceneManager", 2);
-
         int index = 0;
-
         for (String is : isRun) {
 
             if (is.equals("run")) {
