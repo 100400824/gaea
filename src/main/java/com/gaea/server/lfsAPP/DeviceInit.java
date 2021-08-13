@@ -5,6 +5,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+
 import java.io.File;
 import java.net.URL;
 
@@ -31,12 +32,12 @@ public class DeviceInit {
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
-        capabilities.setCapability(MobileCapabilityType.APP, app.getAbsoluteFile());
+        //放开注释重新安装APP
+//        capabilities.setCapability(MobileCapabilityType.APP, app.getAbsoluteFile());
 
         capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, dveiceID);
 
-//        放开注释重新安装APP
-//        capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE,packgeName);
+        capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE,packgeName);
 
         capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, avtivetyName);
 
@@ -53,7 +54,6 @@ public class DeviceInit {
         return driver;
 
     }
-
 
 
 }

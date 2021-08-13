@@ -32,7 +32,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("用户平台事业部-测试组") // 任意，请稍微规范点
-                .description("集成各项目测试工具：大吃一墩") // 任意，请稍微规范点
+                .description("集成各项目测试工具：1.大吃一墩；2.旅法师营地Android自动化功能测试；") // 任意，请稍微规范点
                 .termsOfServiceUrl("http://localhost:7127/swagger-ui.html") // 将“url”换成自己的ip:port
                 .version("1.1.0")
                 .build();

@@ -3,20 +3,21 @@ package com.gaea.utls;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
+import java.util.UUID;
 
 
 public class AppiumManager {
 
-    private static String strText;
+    private static String getText,sendKeysStr;
 
     public static void main(String[] args) {
 
 
     }
 
-    public static void appiumManagement(AppiumDriver driver, String infoValue, String position, String positionValue, String operation, String operationValue) throws Exception {
+    public static void appiumManagement(AppiumDriver driver, String caseIndex, String infoValue, String position, String positionValue, String operation, String operationValue) throws Exception {
 
         WebElement element;
 
@@ -32,7 +33,12 @@ public class AppiumManager {
                 break;
 
             case "assert":
-                checkInfo(positionValue, strText, infoValue);
+                if (positionValue.equals("sendkeys")){
+                    Loginfo.checkInfo(sendKeysStr, getText, infoValue);
+                }else {
+                    Loginfo.checkInfo(positionValue, getText, infoValue);
+                }
+
                 break;
 
             default:
@@ -47,6 +53,15 @@ public class AppiumManager {
                         element = getElementWait(driver, By.className(positionValue));
                         break;
 
+                    case "xpath":
+                        element = getElementWait(driver, By.xpath(positionValue));
+                        break;
+
+                    case "xpathLast":
+                        List elements = getElementsWait(driver, By.xpath(positionValue));
+                        element = (WebElement) elements.get(elements.size()-1);
+                        break;
+
                     default:
                         element = getElementWait(driver, By.className(positionValue));
                         break;
@@ -59,11 +74,19 @@ public class AppiumManager {
                         break;
 
                     case "sendkeys":
-                        element.sendKeys(operationValue);
+                        String gaeaUUID = "gaeaUUID";
+                        String uuid = UUID.randomUUID().toString().replace("-","");
+                        if (operationValue.contains(gaeaUUID)){
+                            sendKeysStr = operationValue.replace(gaeaUUID,"") + uuid;
+                            element.sendKeys(sendKeysStr);
+                        }else {
+                            element.sendKeys(operationValue);
+                        }
+
                         break;
 
                     case "getText":
-                        strText = element.getText();
+                        getText = element.getText();
                         break;
 
                     case "clear":
@@ -73,27 +96,38 @@ public class AppiumManager {
                 break;
         }
 
+        Loginfo.printLog(caseIndex, infoValue);
+
     }
 
-    private static void checkInfo(String str1, String str2, String info) {
+    //间隔500ms查询一次元素信息
+    private static WebElement getElementWait(AppiumDriver driver, By by) throws Exception {
+        /*WebDriverWait wait = new WebDriverWait(driver, 6);
+        return wait.until(ExpectedConditions.presenceOfElementLocated(by));*/
+        for (int i=1; i<60;i++) {
+            try {
+                return driver.findElement(by);
+            } catch (Exception e) {
+                Thread.sleep(100);
+                i++;
+            }
+        }
+        return driver.findElement(by);
+    }
 
-        if (str1.equals(str2)) {
-
-            System.out.println(info + "通过");
-        } else {
-
-            System.out.println(info + "失败");
-            System.out.println("期望结果：" + str1 + "，实际结果：" + str2);
+    //间隔500ms查询一次元素信息
+    private static List getElementsWait(AppiumDriver driver, By by) throws Exception {
+        /*WebDriverWait wait = new WebDriverWait(driver, 6);
+        return wait.until(ExpectedConditions.presenceOfElementLocated(by));*/
+        for (int i=1; i<60;i++) {
+            try {
+                return driver.findElements(by);
+            } catch (Exception e) {
+                Thread.sleep(100);
+                i++;
+            }
         }
 
-    }
-
-
-    private static WebElement getElementWait(AppiumDriver driver, By by) {
-
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-
-        return wait.until(ExpectedConditions.presenceOfElementLocated(by));
-
+        return driver.findElements(by);
     }
 }
