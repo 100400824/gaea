@@ -1,0 +1,483 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <title>UI自动化测试报告</title>
+<link rel="icon" type="image/x-icon" href="http://172.23.5.160:50080/aeplus/favicon.ico">    <meta name="generator" content="HTMLTestRunner 0.9.1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/echarts/3.8.5/echarts.common.min.js"></script>
+<link data-n-head="ssr" rel="icon" type="image/x-icon" href="https://pic.iyingdi.com/yingdi_pc/logo.png">    <!-- <script type="text/javascript" src="js/echarts.common.min.js"></script> -->
+
+    
+<style type="text/css" media="screen">
+    body        { font-family: Microsoft YaHei,Consolas,arial,sans-serif; font-size: 80%; }
+    table       { font-size: 100%; }
+    pre         { white-space: pre-wrap;word-wrap: break-word; }
+
+    /* -- heading ---------------------------------------------------------------------- */
+    h1 {
+        font-size: 16pt;
+        color: gray;
+    }
+    .heading {
+        margin-top: 0ex;
+        margin-bottom: 1ex;
+    }
+
+    .heading .attribute {
+        margin-top: 1ex;
+        margin-bottom: 0;
+    }
+
+    .heading .description {
+        margin-top: 2ex;
+        margin-bottom: 3ex;
+    }
+
+    /* -- css div popup ------------------------------------------------------------------------ */
+    a.popup_link {
+    }
+
+    a.popup_link:hover {
+        color: red;
+    }
+
+    .popup_window {
+        display: none;
+        position: relative;
+        left: 0px;
+        top: 0px;
+        /*border: solid #627173 1px; */
+        padding: 10px;
+        /*background-color: #E6E6D6; */
+        font-family: "Lucida Console", "Courier New", Courier, monospace;
+        text-align: left;
+        font-size: 8pt;
+        /* width: 500px;*/
+    }
+
+    }
+    /* -- report ------------------------------------------------------------------------ */
+    #show_detail_line {
+        margin-top: 3ex;
+        margin-bottom: 1ex;
+    }
+    #result_table {
+        width: 99%;
+    }
+    #header_row {
+        font-weight: bold;
+        color: #303641;
+        background-color: #ebebeb;
+    }
+    #total_row  { font-weight: bold; }
+    .passClass  { background-color: #bdedbc; }
+    .failClass  { background-color: #ffefa4; }
+    .errorClass { background-color: #ffc9c9; }
+    .passCase   { color: #6c6; }
+    .failCase   { color: #FF6600; font-weight: bold; }
+    .errorCase  { color: #c00; font-weight: bold; }
+    .hiddenRow  { display: none; }
+    .testcase   { margin-left: 2em; }
+
+
+    /* -- ending ---------------------------------------------------------------------- */
+    #ending {
+    }
+
+    #div_base {
+                position:absolute;
+                top:0%;
+                left:5%;
+                right:5%;
+                width: auto;
+                height: auto;
+                margin: -15px 0 0 0;
+    }
+</style>
+
+
+</head>
+<body>
+    <script language="javascript" type="text/javascript"><!--
+    output_list = Array();
+
+    /* level - 0:Summary; 1:Failed; 2:All */
+    function showCase(level) {
+        trs = document.getElementsByTagName("tr");
+        for (var i = 0; i < trs.length; i++) {
+            tr = trs[i];
+            id = tr.id;
+            if (id.substr(0,2) == 'ft') {
+                if (level < 1) {
+                    tr.className = 'hiddenRow';
+                }
+                else {
+                    tr.className = '';
+                }
+            }
+            if (id.substr(0,2) == 'pt') {
+                if (level > 1) {
+                    tr.className = '';
+                }
+                else {
+                    tr.className = 'hiddenRow';
+                }
+            }
+        }
+    }
+
+
+    function showClassDetail(cid, count) {
+        var id_list = Array(count);
+        var toHide = 1;
+        for (var i = 0; i < count; i++) {
+            tid0 = 't' + cid.substr(1) + '.' + (i+1);
+            tid = 'f' + tid0;
+            tr = document.getElementById(tid);
+            if (!tr) {
+                tid = 'p' + tid0;
+                tr = document.getElementById(tid);
+            }
+            id_list[i] = tid;
+            if (tr.className) {
+                toHide = 0;
+            }
+        }
+        for (var i = 0; i < count; i++) {
+            tid = id_list[i];
+            if (toHide) {
+                document.getElementById('div_'+tid).style.display = 'none'
+                document.getElementById(tid).className = 'hiddenRow';
+            }
+            else {
+                document.getElementById(tid).className = '';
+            }
+        }
+    }
+
+
+    function showTestDetail(div_id){
+        var details_div = document.getElementById(div_id)
+        var displayState = details_div.style.display
+        // alert(displayState)
+        if (displayState != 'block' ) {
+            displayState = 'block'
+            details_div.style.display = 'block'
+        }
+        else {
+            details_div.style.display = 'none'
+        }
+    }
+
+
+    function html_escape(s) {
+        s = s.replace(/&/g,'&amp;');
+        s = s.replace(/</g,'&lt;');
+        s = s.replace(/>/g,'&gt;');
+        return s;
+    }
+
+    /* obsoleted by detail in <div>
+    function showOutput(id, name) {
+        var w = window.open("", //url
+                        name,
+                        "resizable,scrollbars,status,width=800,height=450");
+        d = w.document;
+        d.write("<pre>");
+        d.write(html_escape(output_list[id]));
+        d.write("\n");
+        d.write("<a href='javascript:window.close()'>close</a>\n");
+        d.write("</pre>\n");
+        d.close();
+    }
+    */
+    --></script>
+
+    <div id="div_base">
+        
+    <div class="page-header">
+        <h1>UI自动化测试报告</h1>
+    <p class="attribute"><strong>报告时间:</strong> 2021-08-13 18:21:09 </p>
+<p class="attribute"><strong>状态:</strong> 通过:5  错误:0</p>
+
+    </div>
+    <div style="float: left;width:50%;"><p class="description">用例执行情况：</p></div>
+    <div id="chart" style="width: 50%; height: 400px; float: left; -webkit-tap-highlight-color: transparent; user-select: none; position: relative; background: transparent;" _echarts_instance_="ec_1557026601944"><div style="position: relative; overflow: hidden; width: 857px; height: 400px; padding: 0px; margin: 0px; border-width: 0px;"><canvas width="857" height="400" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 857px; height: 400px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div></div></div>
+
+        
+    <div class="btn-group btn-group-sm">
+        <button class="btn btn-default" onclick="javascript:showCase(0)">总结</button>
+        <button class="btn btn-default" onclick="javascript:showCase(1)">失败</button>
+        <button class="btn btn-default" onclick="javascript:showCase(2)">全部</button>
+    </div>
+    <p></p>
+    <table id="result_table" class="table table-bordered">
+        <colgroup>
+            <col align="left">
+            <col align="right">
+            <col align="right">
+            <col align="right">
+            <col align="right">
+            <col align="right">
+        </colgroup>
+        <tbody><tr id="header_row">
+            <td colspan="2" align="center">测试套件/测试用例</td>
+            <td>总数</td>
+            <td>通过</td>
+            <td>失败</td>
+            <td>错误</td>
+            <td>查看</td>
+
+        </tr>
+        
+    <tr class="passClass">
+        <td colspan="2" align="center">UI自动化测试</td>
+        <td>5</td>
+        <td>5</td>
+        <td>0</td>
+        <td>0</td>
+        <td><a href="javascript:showClassDetail('c1',5)">点击下方可查看详情</a></td>
+
+    </tr>
+
+<tr id="pt1" class="">
+    <td class="none"><div class="testcase">1</div></td>
+    <td style="color:green" align="left">场景1、旅法师营地登录</td>
+    <td colspan="5" align="center">
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus="this.blur();" href="javascript:showTestDetail('div_pt1')">
+        通过（点击查看详细执行步骤）</a>
+
+    <div id="div_pt1" class="popup_window">
+        <pre>场景1、旅法师营地登录。
+1.点击同意隐私协议。
+2.点击开始用使用。
+3.等待1秒。
+4.点击始终允许。
+5.点击tab栏中[我的]。
+6.点击登录注册。
+7.点击账号密码登录。
+8.输入账号信息。
+9.输入密码信息。
+10.滑动到同意隐私协议位置。
+11.点击同意隐私协议。
+12.点击登录按钮。
+13.获取登录后的用户名称。
+14.校验登录是否成功。
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr><tr id="pt2" class="">
+    <td class="none"><div class="testcase">2</div></td>
+    <td style="color:green" align="left">场景2、我的_个人主页。</td>
+    <td colspan="5" align="center">
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus="this.blur();" href="javascript:showTestDetail('div_pt2')">
+        通过（点击查看详细执行步骤）</a>
+
+    <div id="div_pt2" class="popup_window">
+        <pre>场景2、我的_个人主页。
+1.点击tab栏中[我的]。
+2.点击头像右侧的个人主页。
+3.获取主页个人名称。
+4.校验个人名称是否正确。
+5.获取动态中用户名称。
+6.校验动态中用户名称。
+7.点击内容标签。
+8.获取内容中用户名称。
+9.校验内容中用户名称。
+10.点击回复标签。
+11.获取回复中用户名称。
+12.校验回复中用户名称。
+13.点击返回按钮。
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr><tr id="pt3" class="">
+    <td class="none"><div class="testcase">3</div></td>
+    <td style="color:green" align="left">场景3、我的_消息通知。</td>
+    <td colspan="5" align="center">
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus="this.blur();" href="javascript:showTestDetail('div_pt3')">
+        通过（点击查看详细执行步骤）</a>
+
+    <div id="div_pt3" class="popup_window">
+        <pre>场景3、我的_消息通知。
+1.点击tab栏中[我的]。
+2.点击我的中消息通知。
+3.获取消息通知标题信息。
+4.校验消息通知标题内容。
+5.进入收到的回帖。
+6.获取收到的回帖标题信息。
+7.校验收到回帖标题内容。
+8.点击左上角返回按钮。
+9.进入赞。
+10.获取赞的标题信息。
+11.校验赞的标题内容。
+12.点击左上角返回按钮。
+13.进入@我。
+14.获取@我的标题信息。
+15.校验@我的标题内容。
+16.点击左上角返回按钮。
+17.进入消息通知。
+18.获取消息通知的标题信息。
+19.校验消息通知的标题内容。
+20.点击左上角返回按钮。
+21.点击消息通知右上角设置按钮。
+22.获取设置页面标题信息。
+23.校验设置页面标题信息。
+24.关闭收到的回帖功能。
+25.打开收到的回帖功能。
+26.关闭赞功能。
+27.打开赞功能。
+28.关闭@我功能。
+29.打开@我功能。
+30.关闭系统通知功能。
+31.打开系统通知功能。
+32.关闭私信通知功能。
+33.打开私信通知功能。
+34.点击左上角返回按钮。
+35.点击最近一个聊天人。
+36.私信聊天框中输入内容。
+37.点击发送按钮。
+38.等待2秒钟。
+39.获取最后新的消息。
+40.校验发送内容是否一致。
+41.点击返回按钮。
+42.点击消息通知页面返回按钮。
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr><tr id="pt4" class="">
+    <td class="none"><div class="testcase">4</div></td>
+    <td style="color:green" align="left">场景4、我的_我的物品。</td>
+    <td colspan="5" align="center">
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus="this.blur();" href="javascript:showTestDetail('div_pt4')">
+        通过（点击查看详细执行步骤）</a>
+
+    <div id="div_pt4" class="popup_window">
+        <pre>场景4、我的_我的物品。
+1.点击tab栏中[我的]。
+2.点击我的物品。
+3.获取跳转后的tittle。
+4.校验我的物品tittle是否正确。
+5.获取头像框文案。
+6.校验头像框是否正确。
+7.点击徽章。
+8.获取徽章文案。
+9.校验徽章是否正确。
+10.点击名字颜色。
+11.获取名字颜色标签文案。
+12.校验名字颜色标签文案是否正确。
+13.点击返回按钮。
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr><tr id="pt5" class="">
+    <td class="none"><div class="testcase">5</div></td>
+    <td style="color:green" align="left">场景5、我的_收藏历史。</td>
+    <td colspan="5" align="center">
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus="this.blur();" href="javascript:showTestDetail('div_pt5')">
+        通过（点击查看详细执行步骤）</a>
+
+    <div id="div_pt5" class="popup_window">
+        <pre>场景5、我的_收藏历史。
+1.点击tab栏中[我的]。
+2.点击收藏/历史。
+3.获取收藏中的内容。
+4.校验收藏中内容是否正确。
+5.点击编辑按钮。
+6.获取取消按钮。
+7.校验取消按钮是否存在。
+8.点击取消按钮。
+9.点击历史标签。
+10.获取历史中第一个标签名称。
+11.校验历史记录中是否正确。
+12.点击编辑按钮。
+13.获取取消按钮。
+14.校验取消按钮是否存在。
+15.点击取消按钮。
+16.点击返回按钮。
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr><tr id="total_row">
+            <td colspan="2">总计</td>
+            <td>5</td>
+            <td>5</td>
+            <td>0</td>
+            <td>0</td>
+            <td>&nbsp;</td>
+
+        </tr>
+    </tbody></table>
+
+        <div id="ending">&nbsp;</div>
+        
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chart'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title : {
+                text: '测试执行情况',
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            color: ['#95b75d', 'grey', '#b64645'],
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: ['通过','失败','错误']
+            },
+            series : [
+                {
+                    name: '测试执行情况',
+                    type: 'pie',
+                    radius : '60%',
+                    center: ['50%', '60%'],
+                    data:[
+                        {value:5, name:'通过'},
+                        {value:0, name:'失败'},
+                        {value:0, name:'错误'}
+                    ],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+    
+    </div>
+
+
+</body></html>

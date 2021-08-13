@@ -3,6 +3,7 @@ package com.gaea.server.dachiyidun;
 import com.gaea.server.dachiyidun.ob.BattleMark;
 import com.gaea.server.dachiyidun.ob.CardBattle;
 import com.gaea.server.dachiyidun.ob.CardInfo;
+import com.gaea.utls.FileManage;
 import com.gaea.utls.GetTime;
 import com.gaea.utls.OperationFile;
 import org.openqa.selenium.By;
@@ -35,7 +36,7 @@ public class WebDachiyidun {
 
         OperationFile.write(filePath + fileName, fileName + "大吃一墩对战，自动化测试日志");
 
-        System.setProperty("webdriver.chrome.driver", filePath + xx + "chromedriver32.exe");
+        System.setProperty("webdriver.chrome.driver", FileManage.chromeDriver);
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get(url);

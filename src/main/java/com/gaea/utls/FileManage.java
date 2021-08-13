@@ -25,7 +25,7 @@ public class FileManage {
     public static String ngReportSourceFilePath = homePath + xx + "target" + xx + "surefire-reports" + xx + "html";
 
     //报告存放地址
-    public static String reportPath = homePath + xx + "UIreport.txt";
+    public static String reportPath = homePath + xx + "LFSreportAdroid.txt";
 
     //报告压缩后文件存放地址
     public static String zipFilePath = homePath;

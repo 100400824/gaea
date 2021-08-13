@@ -4,6 +4,7 @@ import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.io.FileWriter;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,7 +18,7 @@ public class AppiumManager {
 
     }
 
-    public static void appiumManagement(AppiumDriver driver, String caseIndex, String infoValue, String position, String positionValue, String operation, String operationValue) throws Exception {
+    public static void appiumManagement(AppiumDriver driver, String caseIndex, String infoValue, String position, String positionValue, String operation, String operationValue,FileWriter pfp) throws Exception {
 
         WebElement element;
 
@@ -34,9 +35,9 @@ public class AppiumManager {
 
             case "assert":
                 if (positionValue.equals("sendkeys")){
-                    Loginfo.checkInfo(sendKeysStr, getText, infoValue);
+                    Loginfo.checkInfo(sendKeysStr, getText, infoValue,pfp);
                 }else {
-                    Loginfo.checkInfo(positionValue, getText, infoValue);
+                    Loginfo.checkInfo(positionValue, getText, infoValue,pfp);
                 }
 
                 break;
@@ -96,7 +97,7 @@ public class AppiumManager {
                 break;
         }
 
-        Loginfo.printLog(caseIndex, infoValue);
+        Loginfo.printLog(caseIndex, infoValue,pfp);
 
     }
 
