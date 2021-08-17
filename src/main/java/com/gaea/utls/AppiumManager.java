@@ -11,14 +11,14 @@ import java.util.UUID;
 
 public class AppiumManager {
 
-    private static String getText,sendKeysStr;
+    private static String getText, sendKeysStr;
 
     public static void main(String[] args) {
 
 
     }
 
-    public static void appiumManagement(AppiumDriver driver, String caseIndex, String infoValue, String position, String positionValue, String operation, String operationValue,FileWriter pfp) throws Exception {
+    public static void appiumManagement(AppiumDriver driver, String caseIndex, String infoValue, String position, String positionValue, String operation, String operationValue, FileWriter pfp) throws Exception {
 
         WebElement element;
 
@@ -34,12 +34,15 @@ public class AppiumManager {
                 break;
 
             case "assert":
-                if (positionValue.equals("sendkeys")){
-                    Loginfo.checkInfo(sendKeysStr, getText, infoValue,pfp);
-                }else {
-                    Loginfo.checkInfo(positionValue, getText, infoValue,pfp);
+                if (positionValue.equals("sendkeys")) {
+                    Loginfo.checkInfo("equals", sendKeysStr, getText, infoValue, pfp);
+                } else {
+                    Loginfo.checkInfo("equals", positionValue, getText, infoValue, pfp);
                 }
+                break;
 
+            case "assertContains":
+                Loginfo.checkInfo("contains", getText, positionValue, infoValue, pfp);
                 break;
 
             default:
@@ -60,7 +63,7 @@ public class AppiumManager {
 
                     case "xpathLast":
                         List elements = getElementsWait(driver, By.xpath(positionValue));
-                        element = (WebElement) elements.get(elements.size()-1);
+                        element = (WebElement) elements.get(elements.size() - 1);
                         break;
 
                     default:
@@ -76,14 +79,13 @@ public class AppiumManager {
 
                     case "sendkeys":
                         String gaeaUUID = "gaeaUUID";
-                        String uuid = UUID.randomUUID().toString().replace("-","");
-                        if (operationValue.contains(gaeaUUID)){
-                            sendKeysStr = operationValue.replace(gaeaUUID,"") + uuid;
+                        String uuid = UUID.randomUUID().toString().replace("-", "");
+                        if (operationValue.contains(gaeaUUID)) {
+                            sendKeysStr = operationValue.replace(gaeaUUID, "") + uuid;
                             element.sendKeys(sendKeysStr);
-                        }else {
+                        } else {
                             element.sendKeys(operationValue);
                         }
-
                         break;
 
                     case "getText":
@@ -97,7 +99,7 @@ public class AppiumManager {
                 break;
         }
 
-        Loginfo.printLog(caseIndex, infoValue,pfp);
+        Loginfo.printLog(caseIndex, infoValue, pfp);
 
     }
 
@@ -105,7 +107,7 @@ public class AppiumManager {
     private static WebElement getElementWait(AppiumDriver driver, By by) throws Exception {
         /*WebDriverWait wait = new WebDriverWait(driver, 6);
         return wait.until(ExpectedConditions.presenceOfElementLocated(by));*/
-        for (int i=1; i<60;i++) {
+        for (int i = 1; i < 60; i++) {
             try {
                 return driver.findElement(by);
             } catch (Exception e) {
@@ -120,7 +122,7 @@ public class AppiumManager {
     private static List getElementsWait(AppiumDriver driver, By by) throws Exception {
         /*WebDriverWait wait = new WebDriverWait(driver, 6);
         return wait.until(ExpectedConditions.presenceOfElementLocated(by));*/
-        for (int i=1; i<60;i++) {
+        for (int i = 1; i < 60; i++) {
             try {
                 return driver.findElements(by);
             } catch (Exception e) {

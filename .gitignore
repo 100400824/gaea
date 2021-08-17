@@ -41,4 +41,5 @@ logging.log
 *.ntvs*
 *.njsproj
 *.sln
+*.xlsx
 

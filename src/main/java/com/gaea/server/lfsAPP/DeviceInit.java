@@ -1,5 +1,7 @@
 package com.gaea.server.lfsAPP;
 
+import com.gaea.utls.ExcelTest;
+import com.gaea.utls.FileManage;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
@@ -11,6 +13,8 @@ import java.net.URL;
 
 public class DeviceInit {
 
+    private static String[] dveiceMessage;
+
     public static void main(String[] args) throws Exception {
 
 
@@ -20,13 +24,14 @@ public class DeviceInit {
 
         System.out.println("初始化appium服务器。。。");
 
-        String dveiceID = "SJE0217726000926";
+        String sheetName = "deviceManager";
 
-        String apkPath = "C:\\Users\\Administrator\\Desktop\\gaea\\旅法师营地\\0806\\iyd_v8.3.1_2021-08-06_debug_baidu.apk";
+        getDeviceValue(sheetName, FileManage.lfsCasePath);
 
-        String packgeName = "com.gonlan.iplaymtg";
-
-        String avtivetyName = "com.gonlan.iplaymtg.common.StartActivity";
+        String dveiceID = dveiceMessage[1];
+        String apkPath = dveiceMessage[2];
+        String packgeName = dveiceMessage[3];
+        String avtivetyName = dveiceMessage[4];
 
         File app = new File(apkPath);
 
@@ -53,6 +58,11 @@ public class DeviceInit {
 
         return driver;
 
+    }
+
+    private static void getDeviceValue(String sheetName, String casePath) throws Exception {
+
+        dveiceMessage = ExcelTest.getCell(casePath, sheetName, 2);
     }
 
 

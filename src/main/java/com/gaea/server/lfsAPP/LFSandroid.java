@@ -38,7 +38,7 @@ public class LFSandroid {
     }
 
 
-    public static void runSceneCase(FileWriter pfp) throws Exception {
+    private static void runSceneCase(FileWriter pfp) throws Exception {
 
         String sceneManagerName = "sceneManager";
 
@@ -73,7 +73,6 @@ public class LFSandroid {
                 AppiumManager.appiumManagement(driver, caseIndex[i], info[i], position[i], positionValue[i], operation[i], operationValue[i],pfp);
             } catch (Exception e) {
                 Loginfo.errorNum++;
-                System.out.println("aa:" + info[i]);
                 Loginfo.pringSceneError(runSceneName, caseIndex[i], info[i], "" + e,pfp);
                 break;
             }
