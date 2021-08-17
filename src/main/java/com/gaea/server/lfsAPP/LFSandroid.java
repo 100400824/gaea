@@ -60,7 +60,7 @@ public class LFSandroid {
         Loginfo.printErrorNum(Loginfo.errorNum,pfp);
     }
 
-    //需要运行的场景内容
+    //需要运行的场景内容1
     private static void runScene(AppiumDriver driver, String runSceneName,FileWriter pfp) throws Exception {
 
         int rows = ExcelTest.getRows(FileManage.lfsCasePath, runSceneName);
