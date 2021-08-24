@@ -11,11 +11,13 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 public class WebDachiyidun {
 
@@ -36,9 +38,51 @@ public class WebDachiyidun {
 
         OperationFile.write(filePath + fileName, fileName + "大吃一墩对战，自动化测试日志");
 
-        System.setProperty("webdriver.chrome.driver", FileManage.chromeDriver);
-        driver = new ChromeDriver();
+        Properties props = System.getProperties(); //获得系统属性集
+
+        String osName = props.getProperty("os.name"); //操作系统名称
+
+        //当前运行系统非windows不启动浏览器
+        if (osName.contains("Linux")) {
+
+            System.out.println("linux下启动selenium");
+
+            // chrome 驱动的位置
+            System.setProperty("webdriver.chrome.driver", FileManage.chromeDriverLinux);
+
+            ChromeOptions options = new ChromeOptions();
+
+            options.addArguments("--headless");
+
+            options.addArguments("window-size=1920x1080");
+
+            driver = new ChromeDriver(options);
+
+        } else if (osName.contains("Windows")) {
+
+            System.out.println("windows下启动selenium");
+
+            // chrome 驱动的位置
+            System.setProperty("webdriver.chrome.driver", FileManage.chromeDriver);
+
+            driver = new ChromeDriver();
+
+        } else if (osName.contains("M")) {
+
+            System.out.println("Mac下启动selenium");
+
+            // chrome 驱动的位置
+            System.setProperty("webdriver.chrome.driver", FileManage.chromeDriverMac);
+
+            driver = new ChromeDriver();
+        }
+
         driver.manage().window().maximize();
+
+
+/*        System.setProperty("webdriver.chrome.driver", FileManage.chromeDriver);
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();*/
         driver.get(url);
         Thread.sleep(2000);
 

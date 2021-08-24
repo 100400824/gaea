@@ -14,7 +14,7 @@ public class FileManage {
 
     public static String chromeDriverLinux = homePath + xx + "chromedriverLinux";
 
-    public static String chromeDriverMac = homePath + xx + "chromedrivermac";
+    public static String chromeDriverMac = homePath + xx + "chromedriver";
 
     public static String screenShot = homePath + xx + "img";
 

@@ -7,7 +7,7 @@ public class Loginfo {
     public static int errorNum = 0;
 
     public static void main(String[] args) {
-
+        System.out.println(1);
     }
 
     public static void pringSceneError(String sceneName, String caseID, String caseInfo, String errorInfo, FileWriter pfp) throws Exception {
