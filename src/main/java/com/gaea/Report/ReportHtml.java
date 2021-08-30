@@ -14,7 +14,7 @@ public class ReportHtml {
             "    <title>UI自动化测试报告</title>\n" +
             "<link rel=\"icon\" type=\"image/x-icon\" href=\"http://172.23.5.160:50080/aeplus/favicon.ico\">" +
             "    <meta name=\"generator\" content=\"HTMLTestRunner 0.9.1\">\n" +
-            "    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n" +
+            "    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n" +
             "\n" +
             "    <link href=\"http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css\" rel=\"stylesheet\">\n" +
             "    <script src=\"https://cdn.bootcss.com/echarts/3.8.5/echarts.common.min.js\"></script>\n" +

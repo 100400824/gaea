@@ -1,6 +1,7 @@
 package com.gaea.utls;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.TouchAction;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -24,7 +25,7 @@ public class AppiumManager {
 
         switch (position) {
 
-            case "Thread":
+            case "sleep":
                 Thread.sleep(Integer.parseInt(positionValue));
                 break;
 
@@ -45,9 +46,24 @@ public class AppiumManager {
                 Loginfo.checkInfo("contains", getText, positionValue, infoValue, pfp);
                 break;
 
+            case "tapPoint":
+                int xPoint = Integer.parseInt((positionValue.split(","))[0]);
+                int yPoint = Integer.parseInt((positionValue.split(","))[1]);
+                (new TouchAction(driver)).tap(xPoint, yPoint).perform();
+                break;
+
             default:
 
                 switch (position) {
+
+                    case "noId":
+                        try {
+                            element = getElementWait(driver, By.id(positionValue));
+                            Loginfo.checkInfo("equals", "元素不存在", "元素仍然存在", infoValue, pfp);
+                        }catch (Exception e) {
+                            element = getElementWait(driver, By.xpath("//*"));
+                        }
+                        break;
 
                     case "id":
                         element = getElementWait(driver, By.id(positionValue));
@@ -67,7 +83,7 @@ public class AppiumManager {
                         break;
 
                     default:
-                        element = getElementWait(driver, By.className(positionValue));
+                        element = getElementWait(driver, By.xpath(positionValue));
                         break;
                 }
 
@@ -75,6 +91,11 @@ public class AppiumManager {
 
                     case "click":
                         element.click();
+                        break;
+
+                    case "tapLong":
+                        TouchAction ta = new TouchAction(driver);
+                        ta.longPress(element, Integer.parseInt(operationValue)).release().perform();
                         break;
 
                     case "sendkeys":
