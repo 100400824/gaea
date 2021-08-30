@@ -56,17 +56,17 @@ public class AppiumManager {
 
                 switch (position) {
 
+                    case "id":
+                        element = getElementWait(driver, By.id(positionValue));
+                        break;
+
                     case "noId":
                         try {
-                            element = getElementWait(driver, By.id(positionValue));
+                            element = driver.findElement(By.id(positionValue));
                             Loginfo.checkInfo("equals", "元素不存在", "元素仍然存在", infoValue, pfp);
                         }catch (Exception e) {
                             element = getElementWait(driver, By.xpath("//*"));
                         }
-                        break;
-
-                    case "id":
-                        element = getElementWait(driver, By.id(positionValue));
                         break;
 
                     case "className":
@@ -93,7 +93,7 @@ public class AppiumManager {
                         element.click();
                         break;
 
-                    case "tapLong":
+                    case "longPress":
                         TouchAction ta = new TouchAction(driver);
                         ta.longPress(element, Integer.parseInt(operationValue)).release().perform();
                         break;

@@ -3,6 +3,7 @@ package com.gaea.server.lfsAPP;
 import com.gaea.Report.ReportHtml;
 import com.gaea.utls.*;
 import io.appium.java_client.AppiumDriver;
+
 import java.io.File;
 import java.io.FileWriter;
 
@@ -16,13 +17,14 @@ public class LFSandroid {
 
         doAppium();
     }
+
     public static void doAppium() throws Exception {
 
         File fp = new File(FileManage.reportPath);
 
         FileWriter pfp = new FileWriter(fp, true);
 
-        if(fp.exists()) {
+        if (fp.exists()) {
             OperationFile.clearFile(FileManage.reportPath);
         }
 
@@ -51,17 +53,17 @@ public class LFSandroid {
         for (int r = 1; r < sceneNum; r++) {
 
             if (runtauts[r].equals("run")) {
-                Loginfo.printScene("" + r, runSceneName[r],pfp);
-                runScene(driver, runSceneName[r],pfp);
+                Loginfo.printScene("" + r, runSceneName[r], pfp);
+                runScene(driver, runSceneName[r], pfp);
             }
         }
 
         //打印失败用例数
-        Loginfo.printErrorNum(Loginfo.errorNum,pfp);
+        Loginfo.printErrorNum(Loginfo.errorNum, pfp);
     }
 
     //需要运行的场景内容1
-    private static void runScene(AppiumDriver driver, String runSceneName,FileWriter pfp) throws Exception {
+    private static void runScene(AppiumDriver driver, String runSceneName, FileWriter pfp) throws Exception {
 
         int rows = ExcelTest.getRows(FileManage.lfsCasePath, runSceneName);
 
@@ -70,10 +72,10 @@ public class LFSandroid {
         for (int i = 1; i < rows; i++) {
 
             try {
-                AppiumManager.appiumManagement(driver, caseIndex[i], info[i], position[i], positionValue[i], operation[i], operationValue[i],pfp);
+                AppiumManager.appiumManagement(driver, caseIndex[i], info[i], position[i], positionValue[i], operation[i], operationValue[i], pfp);
             } catch (Exception e) {
                 Loginfo.errorNum++;
-                Loginfo.pringSceneError(runSceneName, caseIndex[i], info[i], "" + e,pfp);
+                Loginfo.pringSceneError(runSceneName, caseIndex[i], info[i], "" + e, pfp);
                 break;
             }
         }
