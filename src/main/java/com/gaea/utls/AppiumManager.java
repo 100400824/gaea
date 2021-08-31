@@ -4,7 +4,6 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
 import java.io.FileWriter;
 import java.util.List;
 import java.util.UUID;
@@ -12,7 +11,7 @@ import java.util.UUID;
 
 public class AppiumManager {
 
-    private static String getText, sendKeysStr;
+    private static String getText1, sendKeysStr, getText2;
 
     public static void main(String[] args) {
 
@@ -36,20 +35,26 @@ public class AppiumManager {
 
             case "assert":
                 if (positionValue.equals("sendkeys")) {
-                    Loginfo.checkInfo("equals", sendKeysStr, getText, infoValue, pfp);
+
+                    Loginfo.checkInfo("equals", sendKeysStr, getText1, infoValue, pfp);
+                } else if (positionValue.equals("getText")) {
+
+                    Loginfo.checkInfo("equals", getText1, getText2, infoValue, pfp);
                 } else {
-                    Loginfo.checkInfo("equals", positionValue, getText, infoValue, pfp);
+
+                    Loginfo.checkInfo("equals", positionValue, getText1, infoValue, pfp);
                 }
                 break;
 
             case "assertContains":
-                Loginfo.checkInfo("contains", getText, positionValue, infoValue, pfp);
+                Loginfo.checkInfo("contains", getText1, positionValue, infoValue, pfp);
                 break;
 
             case "tapPoint":
                 int xPoint = Integer.parseInt((positionValue.split(","))[0]);
                 int yPoint = Integer.parseInt((positionValue.split(","))[1]);
                 (new TouchAction(driver)).tap(xPoint, yPoint).perform();
+                Thread.sleep(500);
                 break;
 
             default:
@@ -64,7 +69,7 @@ public class AppiumManager {
                         try {
                             element = driver.findElement(By.id(positionValue));
                             Loginfo.checkInfo("equals", "元素不存在", "元素仍然存在", infoValue, pfp);
-                        }catch (Exception e) {
+                        } catch (Exception e) {
                             element = getElementWait(driver, By.xpath("//*"));
                         }
                         break;
@@ -83,7 +88,7 @@ public class AppiumManager {
                         break;
 
                     default:
-                        element = getElementWait(driver, By.xpath(positionValue));
+                        element = getElementWait(driver, By.linkText(positionValue));
                         break;
                 }
 
@@ -91,11 +96,13 @@ public class AppiumManager {
 
                     case "click":
                         element.click();
+                        Thread.sleep(500);
                         break;
 
                     case "longPress":
                         TouchAction ta = new TouchAction(driver);
                         ta.longPress(element, Integer.parseInt(operationValue)).release().perform();
+                        Thread.sleep(500);
                         break;
 
                     case "sendkeys":
@@ -107,10 +114,15 @@ public class AppiumManager {
                         } else {
                             element.sendKeys(operationValue);
                         }
+                        Thread.sleep(500);
                         break;
 
                     case "getText":
-                        getText = element.getText();
+                        getText1 = element.getText();
+                        break;
+
+                    case "getText2":
+                        getText2 = element.getText();
                         break;
 
                     case "clear":
@@ -126,8 +138,6 @@ public class AppiumManager {
 
     //间隔500ms查询一次元素信息
     private static WebElement getElementWait(AppiumDriver driver, By by) throws Exception {
-        /*WebDriverWait wait = new WebDriverWait(driver, 6);
-        return wait.until(ExpectedConditions.presenceOfElementLocated(by));*/
         for (int i = 1; i < 60; i++) {
             try {
                 return driver.findElement(by);
@@ -141,8 +151,6 @@ public class AppiumManager {
 
     //间隔500ms查询一次元素信息
     private static List getElementsWait(AppiumDriver driver, By by) throws Exception {
-        /*WebDriverWait wait = new WebDriverWait(driver, 6);
-        return wait.until(ExpectedConditions.presenceOfElementLocated(by));*/
         for (int i = 1; i < 60; i++) {
             try {
                 return driver.findElements(by);

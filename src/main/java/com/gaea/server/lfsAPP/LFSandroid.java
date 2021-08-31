@@ -3,7 +3,6 @@ package com.gaea.server.lfsAPP;
 import com.gaea.Report.ReportHtml;
 import com.gaea.utls.*;
 import io.appium.java_client.AppiumDriver;
-
 import java.io.File;
 import java.io.FileWriter;
 
@@ -11,7 +10,7 @@ public class LFSandroid {
 
     private static String[] caseIndex, info, position, positionValue, operation, operationValue;
 
-    private static String[] runSceneName, runtauts;
+    private static String[] runSceneName, runstarus;
 
     public static void main(String[] args) throws Exception {
 
@@ -52,7 +51,7 @@ public class LFSandroid {
 
         for (int r = 1; r < sceneNum; r++) {
 
-            if (runtauts[r].equals("run")) {
+            if (runstarus[r].equals("run")) {
                 Loginfo.printScene("" + r, runSceneName[r], pfp);
                 runScene(driver, runSceneName[r], pfp);
             }
@@ -85,7 +84,7 @@ public class LFSandroid {
     private static void getScene(String sheetName, String casePath) throws Exception {
 
         runSceneName = ExcelTest.getCell(casePath, sheetName, 1);
-        runtauts = ExcelTest.getCell(casePath, sheetName, 2);
+        runstarus = ExcelTest.getCell(casePath, sheetName, 2);
     }
 
     private static void getCaseValue(String sheetName, String casePath) throws Exception {
