@@ -3,6 +3,7 @@ package com.gaea.utls;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import java.io.FileWriter;
 import java.util.List;
@@ -18,7 +19,7 @@ public class AppiumManager {
 
     }
 
-    public static void appiumManagement(AppiumDriver driver, String caseIndex, String infoValue, String position, String positionValue, String operation, String operationValue, FileWriter pfp) throws Exception {
+    public static void appiumManagement(AppiumDriver driver, String caseIndex, String infoValue, String position, String positionValue, String operation, String operationValue, FileWriter pfp, TakesScreenshot drivername) throws Exception {
 
         WebElement element;
 
@@ -36,18 +37,18 @@ public class AppiumManager {
             case "assert":
                 if (positionValue.equals("sendkeys")) {
 
-                    Loginfo.checkInfo("equals", sendKeysStr, getText1, infoValue, pfp);
+                    Loginfo.checkInfo("equals", sendKeysStr, getText1, infoValue, pfp,drivername);
                 } else if (positionValue.equals("getText")) {
 
-                    Loginfo.checkInfo("equals", getText1, getText2, infoValue, pfp);
+                    Loginfo.checkInfo("equals", getText1, getText2, infoValue, pfp,drivername);
                 } else {
 
-                    Loginfo.checkInfo("equals", positionValue, getText1, infoValue, pfp);
+                    Loginfo.checkInfo("equals", positionValue, getText1, infoValue, pfp,drivername);
                 }
                 break;
 
             case "assertContains":
-                Loginfo.checkInfo("contains", getText1, positionValue, infoValue, pfp);
+                Loginfo.checkInfo("contains", getText1, positionValue, infoValue, pfp,drivername);
                 break;
 
             case "tapPoint":
@@ -68,7 +69,7 @@ public class AppiumManager {
                     case "noId":
                         try {
                             element = driver.findElement(By.id(positionValue));
-                            Loginfo.checkInfo("equals", "元素不存在", "元素仍然存在", infoValue, pfp);
+                            Loginfo.checkInfo("equals", "元素不存在", "元素仍然存在", infoValue, pfp,drivername);
                         } catch (Exception e) {
                             element = getElementWait(driver, By.xpath("//*"));
                         }

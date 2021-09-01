@@ -1,5 +1,7 @@
 package com.gaea.utls;
 
+import org.openqa.selenium.TakesScreenshot;
+
 import java.io.FileWriter;
 
 public class Loginfo {
@@ -18,10 +20,7 @@ public class Loginfo {
         System.out.println(errorInfo);
 
         pfp.write(str + "\r\n");
-//        pfp.write(errorInfo+ "。\r\n");
-
     }
-
 
     public static void printErrorNum(int caseErrorNum, FileWriter pfp) throws Exception {
 
@@ -47,37 +46,38 @@ public class Loginfo {
     }
 
     public static void printLog(String index, String msg, FileWriter pfp) throws Exception {
+
         String str = index + "." + msg;
         System.out.println(index + "." + msg);
         pfp.write(str + "。\r\n");
     }
 
     //校验期望结果
-    public static void checkInfo(String checkType, String str1, String str2, String info, FileWriter pfp) throws Exception {
+    public static void checkInfo(String checkType, String str1, String str2, String info, FileWriter pfp,TakesScreenshot drivername) throws Exception {
 
         switch (checkType) {
 
             case "equals":
                 if (!str1.equals(str2)) {
-                    checkValue(str1, str2, info, pfp);
+                    checkValue(str1, str2, info, pfp,drivername);
                 }
                 break;
 
             case "contains":
                 if (!str1.contains(str2)) {
-                    checkValue(str1, str2, info, pfp);
+                    checkValue(str1, str2, info, pfp,drivername);
                 }
                 break;
 
             default:
-                checkValue("校验类型错误", "校验类型错误!", info, pfp);
+                checkValue("校验类型错误", "校验类型错误!", info, pfp,drivername);
                 break;
         }
 
 
     }
 
-    private static void checkValue(String str1, String str2, String info, FileWriter pfp) throws Exception {
+    private static void checkValue(String str1, String str2, String info, FileWriter pfp, TakesScreenshot drivername) throws Exception {
 
         String stra = info + "失败";
         String strb = "期望结果：" + str1 + "，实际结果：" + str2;
@@ -89,6 +89,8 @@ public class Loginfo {
         pfp.write(stra + "。\r\n");
         pfp.write(strb + "。\r\n");
 
+        //失败时截图
+        ScreenShot.doScreentShot(drivername, strb);
 
     }
 

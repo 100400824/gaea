@@ -5,7 +5,7 @@ import java.io.File;
 
 public class FileManage {
 
-    private static String homePath = System.getProperty("user.dir");
+    final static String homePath = System.getProperty("user.dir");
 
     public static String xx = File.separator;
 
@@ -20,9 +20,6 @@ public class FileManage {
 
     //case存放地址
     public static String lfsCasePath = homePath + xx + "LFS.xlsx";
-
-    //ngReport存放地址
-    public static String ngReportSourceFilePath = homePath + xx + "target" + xx + "surefire-reports" + xx + "html";
 
     //报告存放地址
     public static String reportPath = homePath + xx + "LFSreportAdroid.txt";
