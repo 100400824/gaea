@@ -5,6 +5,7 @@ import io.appium.java_client.TouchAction;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
+
 import java.io.FileWriter;
 import java.util.List;
 import java.util.UUID;
@@ -37,18 +38,18 @@ public class AppiumManager {
             case "assert":
                 if (positionValue.equals("sendkeys")) {
 
-                    Loginfo.checkInfo("equals", sendKeysStr, getText1, infoValue, pfp,drivername);
+                    Loginfo.checkInfo("equals", sendKeysStr, getText1, infoValue, pfp, drivername);
                 } else if (positionValue.equals("getText")) {
 
-                    Loginfo.checkInfo("equals", getText1, getText2, infoValue, pfp,drivername);
+                    Loginfo.checkInfo("equals", getText1, getText2, infoValue, pfp, drivername);
                 } else {
 
-                    Loginfo.checkInfo("equals", positionValue, getText1, infoValue, pfp,drivername);
+                    Loginfo.checkInfo("equals", positionValue, getText1, infoValue, pfp, drivername);
                 }
                 break;
 
             case "assertContains":
-                Loginfo.checkInfo("contains", getText1, positionValue, infoValue, pfp,drivername);
+                Loginfo.checkInfo("contains", getText1, positionValue, infoValue, pfp, drivername);
                 break;
 
             case "tapPoint":
@@ -56,6 +57,11 @@ public class AppiumManager {
                 int yPoint = Integer.parseInt((positionValue.split(","))[1]);
                 (new TouchAction(driver)).tap(xPoint, yPoint).perform();
                 Thread.sleep(500);
+                break;
+
+            case "back":
+                String cmdstr="adb shell input keyevent 4";
+                Runtime.getRuntime().exec(cmdstr).waitFor();
                 break;
 
             default:
@@ -69,7 +75,7 @@ public class AppiumManager {
                     case "noId":
                         try {
                             element = driver.findElement(By.id(positionValue));
-                            Loginfo.checkInfo("equals", "元素不存在", "元素仍然存在", infoValue, pfp,drivername);
+                            Loginfo.checkInfo("equals", "元素不存在", "元素仍然存在", infoValue, pfp, drivername);
                         } catch (Exception e) {
                             element = getElementWait(driver, By.xpath("//*"));
                         }
@@ -86,6 +92,10 @@ public class AppiumManager {
                     case "xpathLast":
                         List elements = getElementsWait(driver, By.xpath(positionValue));
                         element = (WebElement) elements.get(elements.size() - 1);
+                        break;
+
+                    case "toast":
+                        element = getElementWait(driver, By.xpath("//*[@class='android.widget.Toast']"));
                         break;
 
                     default:
@@ -119,11 +129,11 @@ public class AppiumManager {
                         break;
 
                     case "getText":
-                        getText1 = element.getText();
+                        getText1 = element.getText().replaceAll("[\r\n]", "");
                         break;
 
                     case "getText2":
-                        getText2 = element.getText();
+                        getText2 = element.getText().replaceAll("[\r\n]", "");
                         break;
 
                     case "clear":

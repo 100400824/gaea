@@ -16,7 +16,7 @@ public class ScreenShot {
 
         try {
 
-            FileUtils.copyFile(scrFile, new File(FileManage.screenShot + FileManage.xx + filename.replace("/", "") + ".png"));
+            FileUtils.copyFile(scrFile, new File(FileManage.screenShot + FileManage.xx + filename.replace("/", "").replace("\r\n","") + ".png"));
 
         } catch (IOException e) {
 
