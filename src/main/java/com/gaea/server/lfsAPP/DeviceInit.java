@@ -22,7 +22,7 @@ public class DeviceInit {
 
     public static AppiumDriver initDriver() throws Exception {
 
-        System.out.println("初始化appium服务器。。。");
+        System.out.println("初始化appium服务器V1.0.1。。。");
 
         String sheetName = "deviceManager";
 
@@ -52,11 +52,7 @@ public class DeviceInit {
 
         capabilities.setCapability("resetKeyboard", true);  //重置输入法到原有状态
 
-        AppiumDriver driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
-
-        AndroidDriver androidDriver = (AndroidDriver) driver;
-
-        return driver;
+        return new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 
     }
 

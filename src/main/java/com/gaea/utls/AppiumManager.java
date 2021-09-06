@@ -13,7 +13,7 @@ import java.util.UUID;
 
 public class AppiumManager {
 
-    private static String getText1, sendKeysStr, getText2;
+    private static String getText1, getText2, sendKeysStr;
 
     public static void main(String[] args) {
 
@@ -23,6 +23,7 @@ public class AppiumManager {
     public static void appiumManagement(AppiumDriver driver, String caseIndex, String infoValue, String position, String positionValue, String operation, String operationValue, FileWriter pfp, TakesScreenshot drivername) throws Exception {
 
         WebElement element;
+        String cmdstr;
 
         switch (position) {
 
@@ -60,7 +61,12 @@ public class AppiumManager {
                 break;
 
             case "back":
-                String cmdstr="adb shell input keyevent 4";
+                cmdstr = "adb shell input keyevent 4";
+                Runtime.getRuntime().exec(cmdstr).waitFor();
+                break;
+
+            case "home":
+                cmdstr = "adb shell input keyevent 3";
                 Runtime.getRuntime().exec(cmdstr).waitFor();
                 break;
 
@@ -118,7 +124,7 @@ public class AppiumManager {
 
                     case "sendkeys":
                         String gaeaUUID = "gaeaUUID";
-                        String uuid = UUID.randomUUID().toString().replace("-", "");
+                        String uuid = UUID.randomUUID().toString().replace("-", "").substring(1, 11);
                         if (operationValue.contains(gaeaUUID)) {
                             sendKeysStr = operationValue.replace(gaeaUUID, "") + uuid;
                             element.sendKeys(sendKeysStr);
@@ -139,12 +145,12 @@ public class AppiumManager {
                     case "clear":
                         element.clear();
                         break;
+
                 }
                 break;
         }
 
         Loginfo.printLog(caseIndex, infoValue, pfp);
-
     }
 
     //间隔500ms查询一次元素信息
