@@ -53,7 +53,6 @@ public class LFSandroid {
         for (int r = 1; r < sceneNum; r++) {
 
             if (runstarus[r].equals("run")) {
-
                 Loginfo.printScene("" + r, runSceneName[r], pfp);
                 runScene(driver, runSceneName[r], pfp);
             }
@@ -73,10 +72,9 @@ public class LFSandroid {
         for (int i = 1; i < rows; i++) {
 
             try {
-
                 AppiumManager.appiumManagement(driver, caseIndex[i], info[i], position[i], positionValue[i], operation[i], operationValue[i], pfp, driver);
-            } catch (Exception e) {
 
+            } catch (Exception e) {
                 Loginfo.errorNum++;
                 Loginfo.pringSceneError(runSceneName, caseIndex[i], info[i], "" + e, pfp);
                 //失败时截图

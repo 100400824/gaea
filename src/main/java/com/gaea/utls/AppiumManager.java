@@ -37,14 +37,14 @@ public class AppiumManager {
                 break;
 
             case "assert":
-                if (positionValue.equals("sendkeys")) {
-
+                if (positionValue.contains("sendkeys")) {
+                    sendKeysStr = positionValue.replace("sendkeys","") + sendKeysStr;
                     Loginfo.checkInfo("equals", sendKeysStr, getText1, infoValue, pfp, drivername);
+
                 } else if (positionValue.equals("getText")) {
-
                     Loginfo.checkInfo("equals", getText1, getText2, infoValue, pfp, drivername);
-                } else {
 
+                } else {
                     Loginfo.checkInfo("equals", positionValue, getText1, infoValue, pfp, drivername);
                 }
                 break;
@@ -58,6 +58,18 @@ public class AppiumManager {
                 int yPoint = Integer.parseInt((positionValue.split(","))[1]);
                 (new TouchAction(driver)).tap(xPoint, yPoint).perform();
                 Thread.sleep(500);
+                break;
+
+            case "tryXpathClick":
+                int index = 1;
+                while (index == 1) {
+                    try {
+                        driver.findElement(By.xpath(positionValue)).click();
+                    }catch (Exception e) {
+                        index++;
+                    }
+                }
+                Thread.sleep(1000);
                 break;
 
             case "back":
