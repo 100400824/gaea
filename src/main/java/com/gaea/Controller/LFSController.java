@@ -1,6 +1,6 @@
 package com.gaea.Controller;
 
-import com.gaea.server.lfsAPP.LFSandroid;
+import com.gaea.server.LFSAPP.LFSandroid;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

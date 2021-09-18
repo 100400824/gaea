@@ -1,4 +1,4 @@
-package com.gaea.server.lfsAPI;
+package com.gaea.server.LFSAPI;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;

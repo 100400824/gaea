@@ -21,6 +21,9 @@ public class FileManage {
     //case存放地址
     public static String lfsCasePath = homePath + xx + "LFS.xlsx";
 
+    //审核平台临时添加数据
+    public static String shenheADDcontextCasePath = homePath + xx + "审核平台.xlsx";
+
     //报告存放地址
     public static String reportPath = homePath + xx + "LFSreportAdroid.txt";
 

@@ -65,11 +65,11 @@ public class AppiumManager {
                 while (index == 1) {
                     try {
                         driver.findElement(By.xpath(positionValue)).click();
+                        Thread.sleep(1000);
                     }catch (Exception e) {
                         index++;
                     }
                 }
-                Thread.sleep(1000);
                 break;
 
             case "back":

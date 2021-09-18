@@ -1,4 +1,4 @@
-package com.gaea.server.lfsAPP;
+package com.gaea.server.LFSAPP;
 
 import com.gaea.utls.ExcelTest;
 import com.gaea.utls.FileManage;

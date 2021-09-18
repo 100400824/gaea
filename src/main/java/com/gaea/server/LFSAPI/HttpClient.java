@@ -1,6 +1,7 @@
-package com.gaea.server.lfsAPI;
+package com.gaea.server.LFSAPI;
 
-import org.apache.http.Header;
+import com.gaea.utls.ExcelTest;
+import com.gaea.utls.FileManage;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -24,41 +25,57 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 public class HttpClient {
 
     private static CookieStore cookieStore = new BasicCookieStore();
     private static CloseableHttpClient httpClient = HttpClients.custom()
-            .setConnectionTimeToLive(6000, TimeUnit.MILLISECONDS).build();
+            .setConnectionTimeToLive(5000, TimeUnit.MILLISECONDS).build();
     private static HttpGet httpGet;
     private static HttpPost httpPost;
     private static CloseableHttpResponse response;
     private static String resultEntity;
 
+    private static String[] context, img, rich;
+
     public static void main(String[] args) throws Exception {
 
-        postFormData();
+        addData("55");
     }
 
-    public static void postFormData() throws Exception{
+    public static String addData(String id) throws Exception{
+
+        getCaseValue("添加内容", FileManage.shenheADDcontextCasePath);
+
+        int num = 0;
+        for (int i=1; i<=2; i++) {
+            postFormData(context[i].replaceAll("\r|\n", ""),img[i],rich[i] ,id);
+            num ++;
+        }
+        System.out.println("发送数量："+num);
+        return  "" + num;
+    }
+
+    public static void postFormData(String text,String img,String rich,String id) throws Exception{
         HttpClientContext httpClientContext = HttpClientContext.create();
         httpClientContext.setCookieStore(cookieStore);
 
-        String url = "https://api-test.iyingdi.com/web/user/login";
+        String url = "http://context-review-test.gaeamobile.net/api/context-check";
         httpPost = new HttpPost(url);
 
         httpPost.setHeader("Login-Token","nologin");
         httpPost.setHeader("Platform","pc");
         httpPost.setHeader("Content-type", "application/x-www-form-urlencoded");
-
-        List<NameValuePair> p = new ArrayList();
-        p.add(new BasicNameValuePair("password", "123123a"));
-        p.add(new BasicNameValuePair("timestamp","1626951229"));
-        p.add(new BasicNameValuePair("type","password"));
-        p.add(new BasicNameValuePair("username","86_18612977127"));
-        p.add(new BasicNameValuePair("sign","a24fe9a32bc5b0b3ee4fc7d9f80d9d9a"));
+        String context = "{\"img\":\""+img+"\",\"content\":\""+text+"\",\"rich\":\""+rich+"\"}";
+        long ticketID = Calendar.getInstance().getTimeInMillis();
+        ArrayList<NameValuePair> p = new ArrayList<>();
+        p.add(new BasicNameValuePair("app_id", "41"));
+        p.add(new BasicNameValuePair("event_id",id));
+        p.add(new BasicNameValuePair("event_context",context));
+        p.add(new BasicNameValuePair("ticket_id","" + ticketID));
+        p.add(new BasicNameValuePair("sign",BuildSign.getSign(BuildSign.pToMap(p))));
 
         httpPost.setEntity(new UrlEncodedFormEntity(p,"UTF-8"));
 
@@ -66,11 +83,9 @@ public class HttpClient {
 
         resultEntity = EntityUtils.toString(response.getEntity(), "utf-8");
 
-        for (Header a :httpPost.getAllHeaders()) {
-            System.out.println(a);
-        }
 
-        System.out.println(response);
+//        System.out.println(response);
+//        System.out.println(p);
         System.out.println(resultEntity);
 
     }
@@ -106,4 +121,10 @@ public class HttpClient {
         return HttpClients.createDefault();
     }
 
+    private static void getCaseValue(String sheetName, String casePath) throws Exception {
+
+        context = ExcelTest.getCell(casePath, sheetName, 1);
+        img = ExcelTest.getCell(casePath, sheetName, 2);
+        rich = ExcelTest.getCell(casePath, sheetName, 3);
+    }
 }

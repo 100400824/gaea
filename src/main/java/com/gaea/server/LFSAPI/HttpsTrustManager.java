@@ -1,4 +1,4 @@
-package com.gaea.server.lfsAPI;
+package com.gaea.server.LFSAPI;
 
 import javax.net.ssl.X509TrustManager;
 import java.security.cert.CertificateException;
