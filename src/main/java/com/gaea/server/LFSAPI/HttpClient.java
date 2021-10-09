@@ -50,7 +50,7 @@ public class HttpClient {
         getCaseValue("添加内容", FileManage.shenheADDcontextCasePath);
 
         int num = 0;
-        for (int i=1; i<=2; i++) {
+        for (int i=1; i<=1; i++) {
             postFormData(context[i].replaceAll("\r|\n", ""),img[i],rich[i] ,id);
             num ++;
         }

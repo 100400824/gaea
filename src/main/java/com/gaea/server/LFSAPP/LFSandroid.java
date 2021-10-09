@@ -72,13 +72,16 @@ public class LFSandroid {
         for (int i = 1; i < rows; i++) {
 
             try {
-                AppiumManager.appiumManagement(driver, caseIndex[i], info[i], position[i], positionValue[i], operation[i], operationValue[i], pfp, driver);
-
+                if (!caseIndex[i].contains("stop")){
+                    AppiumManager.appiumManagement(driver, caseIndex[i], info[i], position[i], positionValue[i], operation[i], operationValue[i], pfp, driver);
+                }
             } catch (Exception e) {
                 Loginfo.errorNum++;
                 Loginfo.pringSceneError(runSceneName, caseIndex[i], info[i], "" + e, pfp);
                 //失败时截图
-                ScreenShot.doScreentShot(driver, info[i]);
+                try {
+                    ScreenShot.doScreentShot(driver, info[i]);
+                }catch (Exception a){}
                 break;
             }
         }
