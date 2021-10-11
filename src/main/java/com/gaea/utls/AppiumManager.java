@@ -86,6 +86,11 @@ public class AppiumManager {
                 Runtime.getRuntime().exec(cmdstr).waitFor();
                 break;
 
+            case "enter":
+                cmdstr = "adb shell input keyevent 66";
+                Runtime.getRuntime().exec(cmdstr).waitFor();
+                break;
+
             default:
 
                 switch (position) {
@@ -156,6 +161,10 @@ public class AppiumManager {
 
                     case "getText2":
                         getText2 = element.getText().replaceAll("[\r\n]", "");
+                        break;
+
+                    case "getTextSpace":
+                        getText1 = element.getText().replaceAll("[\r\n]", "").replace(" ","");
                         break;
 
                     case "clear":
