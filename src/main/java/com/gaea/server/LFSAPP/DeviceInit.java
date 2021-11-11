@@ -1,6 +1,6 @@
 package com.gaea.server.LFSAPP;
 
-import com.gaea.utls.ExcelTest;
+import com.gaea.utls.publicTool.ExcelTest;
 import com.gaea.utls.FileManage;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
@@ -46,7 +46,7 @@ public class DeviceInit {
 
         capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, avtivetyName);
 
-        capabilities.setCapability("newCommandTimeout", 600);//设置连接超时时间
+        capabilities.setCapability("newCommandTimeout", "2000");//设置连接超时时间
 
         capabilities.setCapability("unicodeKeyboard", true);//使用 Unicode 输入法
 

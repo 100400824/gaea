@@ -1,9 +1,9 @@
 package com.gaea.server.LFSexamine;
 
-import com.gaea.utls.ChromeDriver;
-import com.gaea.utls.GetTime;
-import com.gaea.utls.Mail;
-import com.gaea.utls.SeleniumManager;
+import com.gaea.utls.web.ChromeDriver;
+import com.gaea.utls.publicTool.GetTime;
+import com.gaea.utls.publicTool.Mail;
+import com.gaea.utls.web.SeleniumManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 

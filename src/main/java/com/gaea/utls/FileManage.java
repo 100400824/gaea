@@ -18,8 +18,11 @@ public class FileManage {
 
     public static String screenShot = homePath + xx + "img";
 
-    //case存放地址
+    //旅法师case存放地址
     public static String lfsCasePath = homePath + xx + "LFS.xlsx";
+
+    //漫威对局卡组周报
+    public static  String marvelPath = homePath + xx + "卡组周报.xlsx";
 
     //审核平台临时添加数据
     public static String shenheADDcontextCasePath = homePath + xx + "审核平台.xlsx";

@@ -1,6 +1,6 @@
 package com.gaea.server.LFSAPI;
 
-import com.gaea.utls.ExcelTest;
+import com.gaea.utls.publicTool.ExcelTest;
 import com.gaea.utls.FileManage;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.CookieStore;
@@ -50,7 +50,7 @@ public class HttpClient {
         getCaseValue("添加内容", FileManage.shenheADDcontextCasePath);
 
         int num = 0;
-        for (int i=1; i<=1; i++) {
+        for (int i=1; i<=10; i++) {
             postFormData(context[i].replaceAll("\r|\n", ""),img[i],rich[i] ,id);
             num ++;
         }
@@ -59,6 +59,9 @@ public class HttpClient {
     }
 
     public static void postFormData(String text,String img,String rich,String id) throws Exception{
+
+        //审核平台
+        String keyValue = "e7ed20337850a4b85bfb00c70c62846a";
         HttpClientContext httpClientContext = HttpClientContext.create();
         httpClientContext.setCookieStore(cookieStore);
 
@@ -75,7 +78,7 @@ public class HttpClient {
         p.add(new BasicNameValuePair("event_id",id));
         p.add(new BasicNameValuePair("event_context",context));
         p.add(new BasicNameValuePair("ticket_id","" + ticketID));
-        p.add(new BasicNameValuePair("sign",BuildSign.getSign(BuildSign.pToMap(p))));
+        p.add(new BasicNameValuePair("sign",BuildSign.getSign(BuildSign.pToMap(p),keyValue)));
 
         httpPost.setEntity(new UrlEncodedFormEntity(p,"UTF-8"));
 
@@ -83,9 +86,6 @@ public class HttpClient {
 
         resultEntity = EntityUtils.toString(response.getEntity(), "utf-8");
 
-
-//        System.out.println(response);
-//        System.out.println(p);
         System.out.println(resultEntity);
 
     }

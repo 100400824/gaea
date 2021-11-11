@@ -2,6 +2,8 @@ package com.gaea.server.LFSAPP;
 
 import com.gaea.Report.ReportHtml;
 import com.gaea.utls.*;
+import com.gaea.utls.mobile.AppiumManager;
+import com.gaea.utls.publicTool.*;
 import io.appium.java_client.AppiumDriver;
 
 import java.io.File;
@@ -37,6 +39,8 @@ public class LFSandroid {
         ReportHtml reportHtml = new ReportHtml();
 
         reportHtml.doHtmlReport(caseNum(FileManage.lfsCasePath));
+
+        System.out.println(GetTime.getNowTime(GetTime.dateFormat1));
     }
 
 
@@ -50,6 +54,10 @@ public class LFSandroid {
 
         AppiumDriver driver = DeviceInit.initDriver();
 
+/*        driver.quit();
+
+        driver = DeviceInit.initDriver();*/
+
         for (int r = 1; r < sceneNum; r++) {
 
             if (runstarus[r].equals("run")) {
@@ -60,6 +68,8 @@ public class LFSandroid {
 
         //打印失败用例数
         Loginfo.printErrorNum(Loginfo.errorNum, pfp);
+
+        driver.quit();
     }
 
     //需要运行的场景内容
@@ -81,7 +91,7 @@ public class LFSandroid {
                 //失败时截图
                 try {
                     ScreenShot.doScreentShot(driver, info[i]);
-                }catch (Exception a){}
+                }catch (Exception ignored){}
                 break;
             }
         }

@@ -1,15 +1,19 @@
 package com.gaea.Controller;
 
 import com.gaea.server.LFSAPI.HttpClient;
+import com.gaea.utls.publicTool.Upload;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 @Slf4j
 @RestController
@@ -22,5 +26,11 @@ public class TestController {
     @ApiImplicitParams({@ApiImplicitParam(name="id",value="填写增加数据的事件ID（事件管理-事件列表中可查到ID）",required=true)})
     public String hello(@RequestParam("id") String id) throws Exception {
         return HttpClient.addData(id);
+    }
+
+    @ApiOperation("文件上传接口")
+    @PostMapping("/upload")
+    public Object addFile(MultipartFile file) throws IOException {
+        return Upload.upload(file);
     }
 }
