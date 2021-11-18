@@ -50,7 +50,7 @@ public class ChromeDriver {
 
             return new org.openqa.selenium.chrome.ChromeDriver();
 
-        }else {
+        } else {
 
             return driver;
         }
