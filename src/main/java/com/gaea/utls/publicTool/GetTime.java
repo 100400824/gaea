@@ -10,11 +10,19 @@ public class GetTime {
     public static final String dateFormat3 = "yyyy-MM-dd-HH-mm-ss";
     public static final String dateFormat4 = "yyyy-MM-dd-HH-mm";
     public static final String dateFormat5 = "MM月dd日HH时mm分";
+    public static final String dateFormat6 = "yyyy-MM-dd";
 
     public static void main(String[] args) {
 //        getNowTime(GetTime.dateFormat2);
 //        getTimeDifference("2020-09-19 22:48:55.260", "2020-09-19 22:48:56.259");
 //        System.out.println(getNowTime(dateFormat5));
+    }
+
+    public static Date strToDate(String dateValue,String dateFormat) throws Exception{
+
+        SimpleDateFormat ft = new SimpleDateFormat(dateFormat);
+
+        return ft.parse(dateValue);
     }
 
     public static String getNowTime(String dateFormat) {

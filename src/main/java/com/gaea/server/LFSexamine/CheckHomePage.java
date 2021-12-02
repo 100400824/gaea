@@ -21,7 +21,7 @@ public class CheckHomePage {
         首页
         炉石传说
         */
-        System.out.println(checkPageInfo("炉石传说", 20));
+        System.out.println(checkPageInfo("炉石传说", 11));
     }
 
     public static String checkPageInfo(String caseName, int runtime) throws Exception {
@@ -84,7 +84,7 @@ public class CheckHomePage {
                 if (list.contains(id)) {
                     System.out.println(list.indexOf(id) + 1 + "和" + i + "篇文章重复");
                     System.out.println("重复的文章地址->" + id);
-                    System.out.println("xpath地址" + jumpXpath);
+                    System.out.println("xpath地址" + jumpXpath.replace("" + allCount, "" + i));
                     return list.indexOf(id) + 1 + "和" + i + "篇文章重复" + "\n" + "重复的文章地址->" + id;
                 } else {
                     System.out.println(id);
