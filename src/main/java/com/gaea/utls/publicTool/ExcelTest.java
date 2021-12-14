@@ -7,118 +7,100 @@ import java.io.FileInputStream;
 
 public class ExcelTest {
 
-	/**
-	 * @throws Exception
-	 * @return获得EXCEL表中的元素
-	 * 
-	 */
 
-	public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
 
-	}
+    }
 
-	@SuppressWarnings("resource")
-	public static int getRows(String filePath, String sheet) throws Exception {
+    public static int getRows(String filePath, String sheet) throws Exception {
 
-		String path = filePath;
+        XSSFWorkbook excelWBook;
 
-		XSSFWorkbook excelWBook;
+        XSSFSheet excelWSheet;
 
-		XSSFSheet excelWSheet;
+        FileInputStream ExcelFile = new FileInputStream(filePath);
 
-		FileInputStream ExcelFile = new FileInputStream(path);
+        excelWBook = new XSSFWorkbook(ExcelFile);
 
-		excelWBook = new XSSFWorkbook(ExcelFile);
+        excelWSheet = excelWBook.getSheet(sheet);
 
-		excelWSheet = excelWBook.getSheet(sheet);
+        return excelWSheet.getPhysicalNumberOfRows();
 
-		int rows = excelWSheet.getPhysicalNumberOfRows();
+    }
 
-		return rows;
+    //获取每一列元素
+    public static String[] getCell(String filePath, String sheet, int getCell) throws Exception {
 
-	}
+        String cellValue = null;
 
-	@SuppressWarnings("resource")
-	public static String[] getCell(String filePath, String sheet, int getCell) throws Exception {
+        XSSFWorkbook excelWBook;
 
-		String path = filePath;
+        XSSFSheet excelWSheet;
 
-		String cellValue = null;
+        FileInputStream ExcelFile = new FileInputStream(filePath);
 
-		XSSFWorkbook excelWBook;
+        excelWBook = new XSSFWorkbook(ExcelFile);
 
-		XSSFSheet excelWSheet;
+        excelWSheet = excelWBook.getSheet(sheet);
 
-		FileInputStream ExcelFile = new FileInputStream(path);
+        int rows = excelWSheet.getPhysicalNumberOfRows();
 
-		excelWBook = new XSSFWorkbook(ExcelFile);
+        String[] rowAll = new String[rows];
 
-		excelWSheet = excelWBook.getSheet(sheet);
+        for (int i = 0; i < rows; i++) {
 
-		int rows = excelWSheet.getPhysicalNumberOfRows();
+            try {
+                try {
 
-		String[] rowAll = new String[rows];
+                    cellValue = excelWSheet.getRow(i).getCell(getCell).getStringCellValue();
 
-		for (int i = 0; i < rows; i++) {
+                } catch (Exception e) {
 
-			try {
-				try {
+                    cellValue = "" + (int) excelWSheet.getRow(i).getCell(getCell).getNumericCellValue();
+                }
+            } catch (Exception ignored) {
 
-					cellValue = excelWSheet.getRow(i).getCell(getCell).getStringCellValue();
+            }
 
-				} catch (Exception e) {
+            rowAll[i] = cellValue;
+        }
 
-					cellValue = "" + (int) excelWSheet.getRow(i).getCell(getCell).getNumericCellValue();
+        return rowAll;
+    }
 
-				}
-			} catch (Exception e) {
+    //获取每一行的元素，column控制从第1列开始到第N列
+    public static String[] getRows(String filePaht, String sheet, int cell, int column) throws Exception {
 
-			}
+        String cellValue = null;
 
-			rowAll[i] = cellValue;
-		}
+        XSSFWorkbook excelWBook;
 
-		return rowAll;
-	}
-	
-	@SuppressWarnings("resource")
-	public static String[] getRows(String filePaht, String sheet, int cell, int column) throws Exception {
+        XSSFSheet excelWSheet;
 
-		String path = filePaht;
+        FileInputStream ExcelFile = new FileInputStream(filePaht);
 
-		String cellValue = null;
+        excelWBook = new XSSFWorkbook(ExcelFile);
 
-		XSSFWorkbook excelWBook;
+        excelWSheet = excelWBook.getSheet(sheet);
 
-		XSSFSheet excelWSheet;
+        String[] rowAll = new String[column];
 
-		FileInputStream ExcelFile = new FileInputStream(path);
+        for (int i = 0; i < column; i++) {
 
-		excelWBook = new XSSFWorkbook(ExcelFile);
+            try {
+                try {
+                    cellValue = excelWSheet.getRow(cell).getCell(i).getStringCellValue();
 
-		excelWSheet = excelWBook.getSheet(sheet);
+                } catch (Exception e) {
+                    cellValue = "" + (int) excelWSheet.getRow(cell).getCell(i).getNumericCellValue();
+                }
+            }catch (Exception e){}
 
-		String[] rowAll = new String[column];
+            rowAll[i] = "" + cellValue;
+        }
 
-		for (int i = 0; i < column; i++) {
+        return rowAll;
 
-			try {
-
-				cellValue = excelWSheet.getRow(cell).getCell(i).getStringCellValue();
-
-			} catch (Exception e) {
-
-				// cellValue = "" + (int)
-				// excelWSheet.getRow(1).getCell(i).getNumericCellValue();
-
-				System.out.println(e);
-			}
-
-			rowAll[i] = cellValue;
-		}
-
-		return rowAll;
-
-	}
+    }
 
 }

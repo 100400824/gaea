@@ -4,10 +4,7 @@ import com.gaea.utls.Mysql.ConnectMySql;
 
 import java.util.*;
 
-/*
- * 1、根据最新分布，计算历史中出现该分布后，下一次最大概率出现和最小概率出现的分布趋势
- * 2、根据分布趋势，计算历史中，该趋势中各数字出现的概率，取出现率最高组合和出现率最低组合
- * */
+
 public class proph {
 
     public static void main(String[] args) {
@@ -22,7 +19,7 @@ public class proph {
 
         Map<String, Integer> fenbuMap = new HashMap<>();
 
-        String targetFenbu = "3120";
+        String targetFenbu = "0411";
 
         boolean isFenbu = false;
 

@@ -2,6 +2,7 @@ package com.gaea.utls.mobile;
 
 import com.gaea.utls.publicTool.Loginfo;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.TouchAction;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TakesScreenshot;

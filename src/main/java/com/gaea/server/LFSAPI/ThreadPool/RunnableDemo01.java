@@ -1,6 +1,5 @@
 package com.gaea.server.LFSAPI.ThreadPool;
 
-import com.gaea.server.LFSAPI.BuildSign;
 import com.gaea.utls.httpclient.DoPost;
 import com.gaea.utls.httpclient.FormDataVO;
 
@@ -42,7 +41,6 @@ public class RunnableDemo01 {
         formDataVO2.setUrl("https://api.iyingdi.com/web/feed/top-content");
         formDataVO2.setHeaders(headerMap2);
         formDataVO2.setContent(contentMap2);
-
 
         MyThread mt1 = new MyThread(DoPost.postFormData(formDataVO1, false));
         MyThread mt2 = new MyThread(DoPost.postFormData(formDataVO2, false));

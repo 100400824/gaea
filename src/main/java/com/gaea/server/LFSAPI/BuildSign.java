@@ -57,10 +57,9 @@ public class BuildSign {
 
         beforeSign += "key=" + keyValue;
 //        System.out.println(beforeSign);
-        String signStr = getMD5(beforeSign, 32);
-//        System.out.println("beforeSign：" + beforeSign);
+        //        System.out.println("beforeSign：" + beforeSign);
 //        System.out.println("MD5加密后字符串：" + signStr);
-        return signStr;
+        return getMD5(beforeSign, 32);
     }
 
     //对字符串进行MD5加密
@@ -70,14 +69,14 @@ public class BuildSign {
         byte[] digest = md.digest();
         int i;
         StringBuilder sb = new StringBuilder();
-        for (int offset = 0; offset < digest.length; offset++) {
-            i = digest[offset];
+        for (byte b : digest) {
+            i = b;
             if (i < 0)
                 i += 256;
             if (i < 16)
                 sb.append(0);
             sb.append(Integer.toHexString(i));
         }
-        return sb.toString().substring(0, length);
+        return sb.substring(0, length);
     }
 }

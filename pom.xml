@@ -123,6 +123,7 @@
             <version>4.1.0</version>
         </dependency>
 
+        <!--图片识别-->
         <dependency>
             <groupId>net.sourceforge.tess4j</groupId>
             <artifactId>tess4j</artifactId>
@@ -134,8 +135,26 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--图片识别-->
+
+<!--        <dependency>
+            <groupId>org</groupId>
+            <artifactId>opencv</artifactId>
+            <scope>system</scope>
+            <systemPath>${project.basedir}\src\main\resources\lib\opencv\opencv-451.jar</systemPath>
+        </dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/org.openpnp/opencv -->
+      <!--  <dependency>
+            <groupId>org.openpnp</groupId>
+            <artifactId>opencv</artifactId>
+            <version>4.5.1-2</version>
+            <systemPath>${project.basedir}\src\main\resources\lib\opencv\opencv-451.jar</systemPath>
+        </dependency>-->
+
+
     </dependencies>
+
+
 
     <build>
         <plugins>
