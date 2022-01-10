@@ -2,6 +2,7 @@ package com.gaea.server.LFSAPI.ThreadPool;
 
 import com.gaea.utls.httpclient.DoPost;
 import com.gaea.utls.httpclient.FormDataVO;
+import org.apache.http.client.methods.HttpPost;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,8 +43,8 @@ public class RunnableDemo01 {
         formDataVO2.setHeaders(headerMap2);
         formDataVO2.setContent(contentMap2);
 
-        MyThread mt1 = new MyThread(DoPost.postFormData(formDataVO1, false));
-        MyThread mt2 = new MyThread(DoPost.postFormData(formDataVO2, false));
+        MyThread mt1 = new MyThread((HttpPost)DoPost.postFormData(formDataVO1, false));
+        MyThread mt2 = new MyThread((HttpPost)DoPost.postFormData(formDataVO2, false));
         Thread t1 = new Thread(mt1);
         Thread t2 = new Thread(mt2);
         t1.start();

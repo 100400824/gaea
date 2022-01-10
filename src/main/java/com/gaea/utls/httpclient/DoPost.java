@@ -21,7 +21,7 @@ public class DoPost {
     private static final CloseableHttpClient httpClient = HttpClients.custom()
             .setConnectionTimeToLive(5000, TimeUnit.MILLISECONDS).build();
 
-    public static HttpPost postFormData(FormDataVO formDataVO, Boolean runIs) throws Exception {
+    public static Object postFormData(FormDataVO formDataVO, Boolean runIs) throws Exception {
 
         HttpClientContext httpClientContext = HttpClientContext.create();
         httpClientContext.setCookieStore(cookieStore);
@@ -39,6 +39,7 @@ public class DoPost {
         for (String key : formDataVO.getContent().keySet()) {
             p.add(new BasicNameValuePair(key, formDataVO.getContent().get(key).toString()));
         }
+
         httpPost.setEntity(new UrlEncodedFormEntity(p, "UTF-8"));
 
         //判断是否请求
@@ -46,6 +47,7 @@ public class DoPost {
             CloseableHttpResponse response = httpClient.execute(httpPost);
             String resultEntity = EntityUtils.toString(response.getEntity(), "utf-8");
             System.out.println(resultEntity);
+            return  resultEntity;
         }
 
         return httpPost;

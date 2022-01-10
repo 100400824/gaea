@@ -13,19 +13,19 @@ public class BuildSign {
 
 
         ArrayList<NameValuePair> p = new ArrayList<>();
-        p.add(new BasicNameValuePair("money", "2"));
+        p.add(new BasicNameValuePair("is_visible", "1"));
         p.add(new BasicNameValuePair("page", "1"));
-        p.add(new BasicNameValuePair("page_size", "20"));
-        p.add(new BasicNameValuePair("timestamp", "1635767746"));
-
+        p.add(new BasicNameValuePair("page_size", "10"));
+        p.add(new BasicNameValuePair("timestamp", "1640338398"));
 
         //测试环境1
 //        String key = "c3d23ec5e3ee66e56a831012ec47d1a4";
         //测试环境2
-        String key = "3be7f964336bdc8bfee1a0d2b11e398f";
+//        String key = "3be7f964336bdc8bfee1a0d2b11e398f";
         //审核平台
 //        String key = "e7ed20337850a4b85bfb00c70c62846a";
-
+        //商户后台秘钥
+        String key = "39726dfcfd448a1b804a1e0b736bff0c";
         Map<String, Object> map = new HashMap<String, Object>();
         map = BuildSign.pToMap(p);
         System.out.println(getSign(map, key));

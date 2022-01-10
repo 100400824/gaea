@@ -17,7 +17,7 @@ public class DeviceInit {
 
     public static void main(String[] args) throws Exception {
 
-
+        initDriver();
     }
 
     public static AppiumDriver initDriver() throws Exception {

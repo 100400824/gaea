@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text" id="digital" value=""/>
+
+<script>
+    var input = document.getElementById('digital'),
+    shiftStatus = false;
+    var keydownListener = function (event) {
+    if (shiftStatus)
+        return (event.preventDefault ? event.preventDefault() : event.returnValue = false);
+    var keyCode = window.event ? event.which : event.keyCode;
+    if (keyCode === 16)
+        return (shiftStatus = true);
+    if ((keyCode < 48 || keyCode > 57) && keyCode !== 189 && keyCode !== 8)
+        event.preventDefault ? event.preventDefault() : event.returnValue = false;
+    };
+    var keyupListener = function (event) {
+    if (event.keyCode === 16)
+        shiftStatus = false;
+    };
+    var pasteListener = function (event) {
+    var data = window.clipboardData ? window.clipboardData.getData("Text") : event.clipboardData.getData("text/plain");
+    if (!/^[\d-]*$/.test(data))
+        event.preventDefault ? event.preventDefault() : event.returnValue = false;
+    };
+    if (document.addEventListener) {
+    input.addEventListener('keydown', keydownListener, false);
+    input.addEventListener('keyup', keyupListener, false);
+    input.addEventListener('paste', pasteListener, false);
+    } else {
+    input.attachEvent('keydown', keydownListener);
+    input.attachEvent('keydown', keyupListener);
+    input.attachEvent('paste', pasteListener);
+}
+</script>
+</body>
+</html>
