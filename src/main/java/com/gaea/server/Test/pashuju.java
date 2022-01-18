@@ -1,11 +1,12 @@
 package com.gaea.server.Test;
 
-import com.gaea.utls.publicTool.ScreenShot;
+import com.gaea.utls.publicTool.OperationFile;
 import com.gaea.utls.web.ChromeDriver;
-import com.gaea.utls.web.SeleniumManager;
 import org.openqa.selenium.By;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class pashuju {
 
@@ -13,28 +14,34 @@ public class pashuju {
 
         WebDriver driver = ChromeDriver.getChromeDriver();
         driver.manage().window().maximize();
+        String url = "https://scryfall.com/sets";
+        driver.get(url);
+        Thread.sleep(3000);
 
-        int i=1;
+        for (int i = 1; i <= 999; i++) {
+            String xpath = "//*[@id=\"js-checklist\"]/tbody/tr[" + i + "]/td[1]/a";
+            String value = driver.findElement(By.xpath(xpath)).getAttribute("innerHTML");
+            String[] valueArr = value.split("\r|\n|\r\n");
+            List<String> valueList = Arrays.asList(valueArr);
 
-        try {
+            String writeXpath = "C:\\Users\\Administrator\\Desktop\\svg1";
 
-            while (true) {
-                i++;
-                driver.get("https://www.iyingdi.com/tz/post/5142656");
-                Thread.sleep(2000);
-                SeleniumManager.getElementWait(driver,By.xpath("//*[@id=\"__layout\"]/div/div[4]/div[1]")).click();
-                driver.findElement(By.xpath("//*[@class='comments-area']/div[2]/div/div[2]"));
-            }
-        }catch (Exception e){
+            String name = valueList.get(valueList.size() - 1)
+                    .replace(" ", "")
+                    .replace("</small>", "")
+                    .replace("<small>", "")
+                    .replaceAll("[^a-zA-Z0-9\\u4E00-\\u9FA5]", "")
+                    + ".png";
 
-            System.out.println(i);
-            ScreenShot.doScreentShot((TakesScreenshot) driver,""+System.currentTimeMillis());
+            System.out.println(name);
+
+            OperationFile.write(writeXpath + "\\" + name
+                    , valueList.get(1));
+
         }
 
 
-
     }
-
 
 
 }

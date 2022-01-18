@@ -18,11 +18,11 @@ public class GoodsID {
 
     public static void main(String[] args) throws Exception {
 
-       /* String token = "19e14d71-e89a-41ba-8e48-316ea0920074";
-        xiaJia(token);*/
-
-        double money = 300.00;
-        calcMoney(money);
+        String token = "6b038d04-318e-4186-8f9e-d48b7da9fc4f";
+//        xiaJia(token);
+        shanchu(token);
+       /* double money = 300.00;
+        calcMoney(money);*/
     }
 
 
@@ -54,7 +54,7 @@ public class GoodsID {
 
         List<String> goodList = new ArrayList<String>();
         goodList = (ArrayList<String>)getGoodList(token,size,key);
-        System.out.println(goodList);
+//        System.out.println(goodList);
 
         Map<String ,Object> headerMap = new HashMap<>();
         headerMap.put("login-token",token);
@@ -79,6 +79,40 @@ public class GoodsID {
             DoPost.postFormData(formDataVO,true);
         }
     }
+
+    public static void shanchu(String token) throws Exception {
+        String key = "39726dfcfd448a1b804a1e0b736bff0c";
+        String size = "0";
+        size = getGoodList(token,size,key).toString();
+        System.out.println(size);
+
+        List<String> goodList = new ArrayList<String>();
+        goodList = (ArrayList<String>)getGoodList(token,size,key);
+//        System.out.println(goodList);
+
+        Map<String ,Object> headerMap = new HashMap<>();
+        headerMap.put("login-token",token);
+        headerMap.put("content-type","application/x-www-form-urlencoded");
+        headerMap.put("app-version","1001");
+
+        Map<String ,Object> questMap = new HashMap<>();
+
+        for (String goodStr : goodList){
+
+            questMap = new HashMap<>();
+            questMap.put("good_id",goodStr);
+            questMap.put("timestamp","1640345628");
+            questMap.put("sign", BuildSign.getSign(questMap,key));
+
+            FormDataVO formDataVO = new FormDataVO();
+            formDataVO.setUrl("https://trade-api-test.iyingdi.com/admin/goods/delete");
+            formDataVO.setHeaders(headerMap);
+            formDataVO.setContent(questMap);
+
+            DoPost.postFormData(formDataVO,true);
+        }
+    }
+
 
     public static Object getGoodList(String token,String size,String key) throws Exception{
 
