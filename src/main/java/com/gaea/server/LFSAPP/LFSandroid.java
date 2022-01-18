@@ -27,7 +27,7 @@ public class LFSandroid {
         FileWriter pfp = new FileWriter(fp, true);
 
         if (fp.exists()) {
-            OperationFile.clearFile(FileManage.reportPath);
+            FileDone.clearFile(FileManage.reportPath);
         }
 
         runSceneCase(pfp);

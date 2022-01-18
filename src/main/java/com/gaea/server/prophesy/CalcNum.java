@@ -1,6 +1,6 @@
 package com.gaea.server.prophesy;
 
-import com.gaea.utls.publicTool.OperationFile;
+import com.gaea.utls.publicTool.FileDone;
 import com.gaea.utls.web.ChromeDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -39,7 +39,7 @@ public class CalcNum {
                     System.out.print(nums+",");
                     ballNum.append(nums).append(",");
                 }
-                OperationFile.write(path + "/ballNum.txt", ballNum.toString());
+                FileDone.write(path + "/ballNum.txt", ballNum.toString());
                 System.out.println();
             }
 

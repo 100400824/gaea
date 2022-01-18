@@ -1,6 +1,6 @@
 package com.gaea.server.Test;
 
-import com.gaea.utls.publicTool.OperationFile;
+import com.gaea.utls.publicTool.FileDone;
 import com.gaea.utls.web.ChromeDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -35,7 +35,7 @@ public class pashuju {
 
             System.out.println(name);
 
-            OperationFile.write(writeXpath + "\\" + name
+            FileDone.write(writeXpath + "\\" + name
                     , valueList.get(1));
 
         }

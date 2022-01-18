@@ -5,7 +5,7 @@ import com.gaea.server.dachiyidun.ob.CardBattle;
 import com.gaea.server.dachiyidun.ob.CardInfo;
 import com.gaea.utls.FileManage;
 import com.gaea.utls.publicTool.GetTime;
-import com.gaea.utls.publicTool.OperationFile;
+import com.gaea.utls.publicTool.FileDone;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -36,7 +36,7 @@ public class WebDachiyidun {
 
     public static void doDCYD(String url,String userID, String runCount) throws Exception {
 
-        OperationFile.write(filePath + fileName, fileName + "大吃一墩对战，自动化测试日志");
+        FileDone.write(filePath + fileName, fileName + "大吃一墩对战，自动化测试日志");
 
         Properties props = System.getProperties(); //获得系统属性集
 
@@ -112,13 +112,13 @@ public class WebDachiyidun {
 
             System.out.println();
             String newline = "\r\n";
-            OperationFile.write(filePath + fileName, newline);
+            FileDone.write(filePath + fileName, newline);
             String roomInfo = "房间号" + roomName;
             System.out.println(roomInfo);
-            OperationFile.write(filePath + fileName, roomInfo);
+            FileDone.write(filePath + fileName, roomInfo);
 
             System.out.println("当前第" + battleCount + "局比赛：");
-            OperationFile.write(filePath + fileName, "当前第" + battleCount + "局比赛：");
+            FileDone.write(filePath + fileName, "当前第" + battleCount + "局比赛：");
 
             //预测
             int i = 1;
@@ -142,8 +142,8 @@ public class WebDachiyidun {
                 System.out.println();
                 System.out.println(battleCountInfo);
                 newline = "\r\n";
-                OperationFile.write(filePath + fileName, newline);
-                OperationFile.write(filePath + fileName, battleCountInfo);
+                FileDone.write(filePath + fileName, newline);
+                FileDone.write(filePath + fileName, battleCountInfo);
 
                 //获取庄家seatID
                 Thread.sleep(3333);
@@ -161,7 +161,7 @@ public class WebDachiyidun {
 
                 String masterIDInfo = "庄家seatid:" + masterID;
                 System.out.println(masterIDInfo);
-                OperationFile.write(filePath + fileName, masterIDInfo);
+                FileDone.write(filePath + fileName, masterIDInfo);
 
                 //获取本轮卡组信息
                 CardBattle[] cardBattles;
@@ -170,7 +170,7 @@ public class WebDachiyidun {
                     cardBattle.setDomainColour(domainColour);
 
                     System.out.println(cardBattle);
-                    OperationFile.write(filePath + fileName, cardBattle.toString());
+                    FileDone.write(filePath + fileName, cardBattle.toString());
                 }
 
                 //计算得分
@@ -186,7 +186,7 @@ public class WebDachiyidun {
                     }
                     String battleMarkInfo = "测试计算比分：" + battleMark;
                     System.out.println(battleMarkInfo);
-                    OperationFile.write(filePath + fileName, battleMarkInfo);
+                    FileDone.write(filePath + fileName, battleMarkInfo);
                 }
 
                 Thread.sleep(1000);
@@ -211,7 +211,7 @@ public class WebDachiyidun {
 
             String errorCountInfo = "当前总错误次数：" + errorCount;
             System.out.println(errorCountInfo);
-            OperationFile.write(filePath + fileName, errorCountInfo);
+            FileDone.write(filePath + fileName, errorCountInfo);
 
             driver.navigate().refresh();
             Thread.sleep(5000);
@@ -227,9 +227,9 @@ public class WebDachiyidun {
                 String info1 = "本局比分存在异议：";
                 String info2 = "测试计算比分为：" + myMarks[i];
                 String info3 = "系统计算比分为：" + pcMarks[i];
-                OperationFile.write(filePath + fileName, info1);
-                OperationFile.write(filePath + fileName, info2);
-                OperationFile.write(filePath + fileName, info3);
+                FileDone.write(filePath + fileName, info1);
+                FileDone.write(filePath + fileName, info2);
+                FileDone.write(filePath + fileName, info3);
                 System.out.println(info1);
                 System.out.println(info2);
                 System.out.println(info3);
@@ -237,7 +237,7 @@ public class WebDachiyidun {
             } else {
                 String info4 = "测试与系统计算结果一致";
                 System.out.println(info4);
-                OperationFile.write(filePath + fileName, info4);
+                FileDone.write(filePath + fileName, info4);
             }
         }
     }
@@ -274,7 +274,7 @@ public class WebDachiyidun {
             }
             String pcMarksInfo = "pc记分牌->" + pcMarks[i];
             System.out.println(pcMarksInfo);
-            OperationFile.write(filePath + fileName, pcMarksInfo);
+            FileDone.write(filePath + fileName, pcMarksInfo);
         }
 
         return pcMarks;
@@ -328,7 +328,7 @@ public class WebDachiyidun {
                 cardBattles[orderId - 1] = cardBattle;
 
                 System.out.println(imgURL);
-                OperationFile.write(filePath + fileName, imgURL);
+                FileDone.write(filePath + fileName, imgURL);
 
                 //对战最后一人出牌后的拿庄色
                 if (orderId == 4) {

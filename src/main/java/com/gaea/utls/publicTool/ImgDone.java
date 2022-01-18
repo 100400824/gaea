@@ -1,6 +1,5 @@
 package com.gaea.utls.publicTool;
 
-import com.gaea.utls.publicTool.FileDone;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.PNGTranscoder;
@@ -8,18 +7,23 @@ import org.apache.batik.transcoder.image.PNGTranscoder;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
+/*
+ * 1.转换SVG为PNG图片
+ *
+ *
+ * */
 public class ImgDone {
-
 
     public static void main(String[] args) throws Exception {
 
         String xpath = "C:\\Users\\Administrator\\Desktop\\新建文件夹 (2)\\svg";
         File[] fileArr = FileDone.getFiles(xpath);
         String svgPath, pngPath;
+        final String targetPath = "C:\\Users\\Administrator\\Desktop\\新建文件夹 (2)\\png\\";
         for (File file : fileArr) {
             svgPath = file.getPath();
-            pngPath = svgPath.replace("新建文件夹 (2)\\svg", "新建文件夹 (2)\\png1").replace(".svg", ".png");
-            String value = FileDone.readToString(svgPath);
+            pngPath = targetPath + file.getName().replace(".svg", ".png");
+            String value = FileDone.getFileValue(svgPath);
             convertToPng(value, pngPath);
         }
 
@@ -47,6 +51,7 @@ public class ImgDone {
     }
 
     public static void convertToPng(String svgCode, OutputStream outputStream) throws Exception {
+
         try {
             byte[] bytes = svgCode.getBytes(StandardCharsets.UTF_8);
             PNGTranscoder t = new PNGTranscoder();
@@ -63,6 +68,7 @@ public class ImgDone {
                 }
             }
         }
+
     }
 
 

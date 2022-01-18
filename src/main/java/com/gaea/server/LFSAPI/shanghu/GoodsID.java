@@ -42,8 +42,6 @@ public class GoodsID {
             System.out.println("管理费：" + guanliF);
             System.out.println("商户收益：" + (money-guanliF));
         }
-
-
     }
 
     public static void xiaJia(String token) throws Exception {
