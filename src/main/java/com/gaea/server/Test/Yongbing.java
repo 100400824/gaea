@@ -4,20 +4,23 @@ public class Yongbing {
 
     public static void main(String[] args) throws Exception {
 
-        //ABC
-        String[] arr = {"A", "B", "C", "D"};
-        int i=0;
-        for (String e1 : arr) {
-            for (String e2 : arr) {
-                for (String e3 : arr) {
-                    if (!e1.equals(e2) && !e1.equals(e3) && !e2.equals(e3)) {
-                        System.out.println(e1 + e2 +e3);
-                        i++;
-                    }
-                }
-            }
+        String str1 = "testa/testb/testc/testd/teste/testf//testg/testh/";
+        String strEnd = "";
+        for (int i = 1; i <= 100; i++) {
+            strEnd = strEnd + str1 + i + ",";
         }
-        System.out.println(i);
+        System.out.print(strEnd);
+
     }
+
+    public static int fei(int num) {
+
+        if (num == 1 || num == 2) {
+            return 1;
+        }
+
+        return fei(num - 1) + fei(num - 2);
+    }
+
 
 }

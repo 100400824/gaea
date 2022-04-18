@@ -6,6 +6,11 @@ import org.json.JSONArray;
 
 public class DoJson {
 
+    public static void main(String[] args) {
+
+
+    }
+
     public static String[] getArray(String jsonStr,String keyWord) {
 
         JSONObject jsonObject = JSON.parseObject(jsonStr);

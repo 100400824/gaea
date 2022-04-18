@@ -1,7 +1,12 @@
 package com.gaea.utls.publicTool;
 
 import java.io.*;
-
+/*
+* 1.向文件写入指定内容
+* 2.获取文件夹下的所有文件名称或地址
+* 3.读取制定文件的内容
+* 4.清空指定文件
+* */
 public class FileDone {
 
     public static void main(String[] args) throws IOException {
@@ -10,6 +15,7 @@ public class FileDone {
 
     }
 
+    //向文件写入指定内容
     public static void write(String path, String value) throws IOException {
         String newline = "\r\n";
         //将写入转化为流的形式
@@ -22,31 +28,6 @@ public class FileDone {
     public static File[] getFiles(String path) {
         File file = new File(path);
         return file.listFiles();
-    }
-
-    //读取制定文件的内容
-    public static String readToString(String fileName) {
-
-        String encoding = "UTF-8";
-        File file = new File(fileName);
-        Long filelength = file.length();
-        byte[] filecontent = new byte[filelength.intValue()];
-        try {
-            FileInputStream in = new FileInputStream(file);
-            in.read(filecontent);
-            in.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            return new String(filecontent, encoding);
-        } catch (UnsupportedEncodingException e) {
-            System.err.println("The OS does not support " + encoding);
-            e.printStackTrace();
-            return null;
-        }
     }
 
     //获取指定文件内容

@@ -18,11 +18,11 @@ public class GoodsID {
 
     public static void main(String[] args) throws Exception {
 
-        String token = "6b038d04-318e-4186-8f9e-d48b7da9fc4f";
+//        String token = "6b038d04-318e-4186-8f9e-d48b7da9fc4f";
 //        xiaJia(token);
-        shanchu(token);
-       /* double money = 300.00;
-        calcMoney(money);*/
+//        shanchu(token);
+        double money = 1400.00;
+        calcMoney(money);
     }
 
 

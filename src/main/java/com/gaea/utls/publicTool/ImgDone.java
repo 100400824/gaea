@@ -17,15 +17,16 @@ public class ImgDone {
     public static void main(String[] args) throws Exception {
 
         String xpath = "C:\\Users\\Administrator\\Desktop\\新建文件夹 (2)\\svg";
+        final String targetPath = "C:\\Users\\Administrator\\Desktop\\新建文件夹 (2)\\png\\";
         File[] fileArr = FileDone.getFiles(xpath);
         String svgPath, pngPath;
-        final String targetPath = "C:\\Users\\Administrator\\Desktop\\新建文件夹 (2)\\png\\";
         for (File file : fileArr) {
             svgPath = file.getPath();
             pngPath = targetPath + file.getName().replace(".svg", ".png");
             String value = FileDone.getFileValue(svgPath);
             convertToPng(value, pngPath);
         }
+
 
     }
 
